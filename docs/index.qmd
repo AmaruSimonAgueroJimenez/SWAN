@@ -53,6 +53,26 @@ SWANVISIT10<-SWAN_USA_VISIT10_06_08%>% select(SHBG10, #Sex hormone-binding globu
                                                
 ```
 
+# Variables.
+
+-   SHBG10: Sex hormone-binding globulin (nM)
+
+-   T10: Testosterone (ng/dL)
+
+-   FSH10: Follicle-stimulating hormone (mIU/mL)
+
+-   E2AVE10: Estradiol (average, pg/mL)
+
+-   HPBMDT10: Total Hip bone mineral density (BMD) with cross-calibration applied
+
+-   TSH10: Thyroid-stimulating hormone (uIU/mL
+
+-   BMI10: Body mass index
+
+-   SKELMM10: Skeletal Muscle Mass (Janssen equation)
+
+-   FFMNHAN10: Fat free mass (NHANES III data/RJL Systems equation)
+
 # Continuous variable histogram.
 
 ```{r echo=FALSE, warning=FALSE}
@@ -61,19 +81,17 @@ ggplot(gather(SWANVISIT10[,1:11]), aes(value)) +
   facet_wrap(~key, scales = 'free')+theme_minimal()
 ```
 
-\newpage
+# "r" Spearman correlation for continuous variables.
 
-# "r" Spearman correlation for continuous variable.
+-   "r" \> 0: direct relation. "r" \< 0: inverse relation. "r" = 0: no relation.
 
-###### "r" \> 0: direct relation. "r" \< 0: inverse relation. "r" = 0: no relation.
+-   -0.25\<"r"\<0.25: bad predictor
 
-###### -0.25\<"r"\<0.25: bad predictor
+-   -0.5\<"r"\<-0.25 or 0.25\<"r"\<0.5: poor predictor
 
-###### -0.5\<"r"\<-0.25 or 0.25\<"r"\<0.5: poor predictor
+-   -0.5\<"r"\<-0.75 or 0.5\<"r"\<0.75: good predictor
 
-###### -0.5\<"r"\<-0.75 or 0.5\<"r"\<0.75: good predictor
-
-###### "r"\<-0.75 or "r"\>0.75: exelent predictor.
+-   "r"\<-0.75 or "r"\>0.75: excellent predictor.
 
 ```{r echo=FALSE, fig.height=8.5, fig.width=8.5, warning=FALSE}
 pairs.panels(SWANVISIT10[,1:11],
@@ -92,11 +110,11 @@ pairs.panels(SWANVISIT10[,1:11],
              ci = TRUE)          # If TRUE, adds confidence intervals
 ```
 
-###### \*: p value \< 0.05
+\*: p value \< 0.05
 
-###### \*\*: p value \< 0.01
+\*\*: p value \< 0.01
 
-###### \*\*\*: p value \< 0.001
+\*\*\*: p value \< 0.001
 
 # Generalized linear regression models (GLM) for dependent variable: SHBG.
 
@@ -151,6 +169,7 @@ table1<-compare_performance(SHBGM1, SHBGM1.2, SHBGM2, SHBGM2.2, SHBGM4, SHBGM4.2
 ```
 
 ### Performance models.
+
 ```{r echo=FALSE}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
@@ -160,6 +179,7 @@ plot(compare_performance(SHBGM1, SHBGM1.2, SHBGM2, SHBGM2.2, SHBGM4, SHBGM4.2, S
 ```
 
 ### Result for top 4 models: SHBGM1, SHBGM1.2, SHBGM2, SHBGM4
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 ```
@@ -167,6 +187,7 @@ stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 \newpage
 
 ### Check best model: SHBGM1
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(SHBGM1)
 ```
@@ -227,6 +248,7 @@ table1<-compare_performance(SHBGM7, SHBGM7.2, SHBGM8, SHBGM8.2, SHBGM9, SHBGM9.2
 ```
 
 ### Performance models.
+
 ```{r echo=FALSE}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
@@ -236,6 +258,7 @@ plot(compare_performance(SHBGM7, SHBGM7.2, SHBGM8, SHBGM8.2, SHBGM9, SHBGM9.2, S
 ```
 
 ### Result for top 4 models: SHBGM8, SHBGM8.2, SHBGM7.2, SHBGM7
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 ```
@@ -243,11 +266,13 @@ stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 \newpage
 
 ### Check best model: SHBGM8
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(SHBGM8)
 ```
 
 \newpage
+
 ## Independent variable: Hormones + FFMNHAN + AGE + STATUS.
 
 ### Gamma models:
@@ -302,6 +327,7 @@ table1<-compare_performance(SHBGM12, SHBGM12.2, SHBGM13, SHBGM13.2, SHBGM14, SHB
 ```
 
 ### Performance models.
+
 ```{r echo=FALSE}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
@@ -311,6 +337,7 @@ plot(compare_performance(SHBGM12, SHBGM12.2, SHBGM13, SHBGM13.2, SHBGM14, SHBGM1
 ```
 
 ### Result for top 4 models: SHBGM13, SHBGM13.2, SHBGM12, SHBGM12.2
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 ```
@@ -318,6 +345,7 @@ stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 \newpage
 
 ### Check best model: SHBGM13
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(SHBGM13)
 ```
@@ -386,6 +414,7 @@ stargazer(SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1, type = "html", title="Resu
 \newpage
 
 ### Check best model: SKELMMM2
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(SKELMMM2)
 ```
@@ -442,6 +471,7 @@ plot(compare_performance(SKELMMM5, SKELMMM5.2, SKELMMM6, SKELMMM6.2, SKELMMM7, S
 ```
 
 ### Result for top 4 models: SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Results")
 ```
@@ -449,6 +479,7 @@ stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Result
 \newpage
 
 ### Check best model: SKELMMM5.2
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(SKELMMM5.2)
 ```
@@ -515,6 +546,7 @@ stargazer(FFMNHANM2, FFMNHANM2.2, FFMNHANM1, FFMNHANM4, type = "html", title="Re
 \newpage
 
 ### Check best model: FFMNHANM2
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(FFMNHANM2)
 ```
@@ -523,17 +555,17 @@ check_model(FFMNHANM2)
 
 ### Gamma models:
 
--   **FFMNHANM5**: FFMNHAN10 = SHBG10 + SKELMM10  + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM5.2**: FFMNHAN10 = SHBG10 + SKELMM10  + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM6**: log(FFMNHAN10) = SHBG10 + SKELMM10  + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM6.2** log(FFMNHAN10) = SHBG10 + SKELMM10  + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM5**: FFMNHAN10 = SHBG10 + SKELMM10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM5.2**: FFMNHAN10 = SHBG10 + SKELMM10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM6**: log(FFMNHAN10) = SHBG10 + SKELMM10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM6.2** log(FFMNHAN10) = SHBG10 + SKELMM10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
 
 ### Gaussian models:
 
--   **FFMNHANM7**: FFMNHAN10 = SHBG10 + SKELMM10  + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM7.2**: FFMNHAN10 = SHBG10 + SKELMM10  + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM8**: log(FFMNHAN10) = SHBG10 + SKELMM10  + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
--   **FFMNHANM8.2** log(FFMNHAN10) = SHBG10 + SKELMM10  + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM7**: FFMNHAN10 = SHBG10 + SKELMM10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM7.2**: FFMNHAN10 = SHBG10 + SKELMM10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM8**: log(FFMNHAN10) = SHBG10 + SKELMM10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
+-   **FFMNHANM8.2** log(FFMNHAN10) = SHBG10 + SKELMM10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
 
 ```{r include=FALSE}
 #GAMMA IDENTITY ################################################################
@@ -579,6 +611,7 @@ stargazer(FFMNHANM5, FFMNHANM5.2, FFMNHANM7, FFMNHANM6, type = "html", title="Re
 \newpage
 
 ### Check best model: FFMNHANM5
+
 ```{r echo=FALSE, fig.height=12, fig.width=12}
 check_model(FFMNHANM5)
 ```
@@ -586,6 +619,7 @@ check_model(FFMNHANM5)
 # K-folds cross validation predictions for dependent variable: SHBG.
 
 ## SHBGM1 = Hormones + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 NSIM<-2999
 
@@ -626,6 +660,7 @@ table2 %>%
 ```
 
 ## SHBGM8 = Hormones + SKELMM + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 NSIM<-2999
 
@@ -666,7 +701,8 @@ table2 %>%
 
 ```
 
-## SHBGM13 = Hormones + FFMNHAN + AGE + STATUS. 
+## SHBGM13 = Hormones + FFMNHAN + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SHBGM8 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + FFMNHAN10 + STATUS10 , data = SWANVISIT10, 
                Gamma(link = "log"))
@@ -708,6 +744,7 @@ table2 %>%
 # K-folds cross validation predictions for dependent variable: SKELMM.
 
 ## SKELMM = Hormones + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SKELMMM2 <- glm(SKELMM10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
@@ -746,6 +783,7 @@ table2 %>%
 ```
 
 ## SKELMM = Hormones + FFMNHAN + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SKELMMM5.2 <- glm(SKELMM10 ~ SHBG10 + FFMNHAN10 + E2AVE10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
@@ -786,6 +824,7 @@ table2 %>%
 # K-folds cross validation predictions for dependent variable: FFMNHAN.
 
 ## FFMNHAN = Hormones + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 FFMNHANM2 <- glm(FFMNHAN10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
@@ -824,6 +863,7 @@ table2 %>%
 ```
 
 ## FFMNHAN = Hormones + SKELMM + AGE + STATUS.
+
 ```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 FFMNHANM5 <- glm(FFMNHAN10 ~ SHBG10 + SKELMM10  + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
