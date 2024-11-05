@@ -74,7 +74,7 @@ SWANVISIT10<-SWAN_USA_VISIT10_06_08%>% select(SHBG10, #Sex hormone-binding globu
 
 # Continuous variable histogram.
 
-```{r echo=FALSE, warning=FALSE}
+```{r warning=FALSE}
 ggplot(gather(SWANVISIT10[,1:11]), aes(value)) + 
   geom_histogram(bins = 100) + 
   facet_wrap(~key, scales = 'free')+theme_minimal()
@@ -92,7 +92,7 @@ ggplot(gather(SWANVISIT10[,1:11]), aes(value)) +
 
 -   "r"\<-0.75 or "r"\>0.75: excellent predictor.
 
-```{r echo=FALSE, fig.height=8.5, fig.width=8.5, warning=FALSE}
+```{r fig.height=8.5, fig.width=8.5, warning=FALSE}
 pairs.panels(SWANVISIT10[,1:11],
              smooth = TRUE,      # If TRUE, draws loess smooths
              scale = FALSE,      # If TRUE, scales the correlation text font
@@ -169,7 +169,7 @@ table1<-compare_performance(SHBGM1, SHBGM1.2, SHBGM2, SHBGM2.2, SHBGM4, SHBGM4.2
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -179,7 +179,7 @@ plot(compare_performance(SHBGM1, SHBGM1.2, SHBGM2, SHBGM2.2, SHBGM4, SHBGM4.2, S
 
 ### Result for top 4 models: SHBGM1, SHBGM1.2, SHBGM2, SHBGM4
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 ```
 
@@ -187,7 +187,7 @@ stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 
 ### Check best model: SHBGM1
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(SHBGM1)
 ```
 
@@ -248,7 +248,7 @@ table1<-compare_performance(SHBGM7, SHBGM7.2, SHBGM8, SHBGM8.2, SHBGM9, SHBGM9.2
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -258,7 +258,7 @@ plot(compare_performance(SHBGM7, SHBGM7.2, SHBGM8, SHBGM8.2, SHBGM9, SHBGM9.2, S
 
 ### Result for top 4 models: SHBGM8, SHBGM8.2, SHBGM7.2, SHBGM7
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 ```
 
@@ -266,7 +266,7 @@ stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 
 ### Check best model: SHBGM8
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(SHBGM8)
 ```
 
@@ -327,7 +327,7 @@ table1<-compare_performance(SHBGM12, SHBGM12.2, SHBGM13, SHBGM13.2, SHBGM14, SHB
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -337,7 +337,7 @@ plot(compare_performance(SHBGM12, SHBGM12.2, SHBGM13, SHBGM13.2, SHBGM14, SHBGM1
 
 ### Result for top 4 models: SHBGM13, SHBGM13.2, SHBGM12, SHBGM12.2
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 ```
 
@@ -345,7 +345,7 @@ stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 
 ### Check best model: SHBGM13
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(SHBGM13)
 ```
 
@@ -396,7 +396,7 @@ table1<-compare_performance(SKELMMM1, SKELMMM1.2, SKELMMM2, SKELMMM2.2, SKELMMM3
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -406,7 +406,7 @@ plot(compare_performance(SKELMMM1, SKELMMM1.2, SKELMMM2, SKELMMM2.2, SKELMMM3, S
 
 ### Result for top 4 models: SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1, type = "html", title="Results")
 ```
 
@@ -414,7 +414,7 @@ stargazer(SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1, type = "html", title="Resu
 
 ### Check best model: SKELMMM2
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(SKELMMM2)
 ```
 
@@ -471,7 +471,7 @@ plot(compare_performance(SKELMMM5, SKELMMM5.2, SKELMMM6, SKELMMM6.2, SKELMMM7, S
 
 ### Result for top 4 models: SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Results")
 ```
 
@@ -479,7 +479,7 @@ stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Result
 
 ### Check best model: SKELMMM5.2
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(SKELMMM5.2)
 ```
 
@@ -501,7 +501,7 @@ check_model(SKELMMM5.2)
 -   **FFMNHANM4**: log(FFMNHAN10) = SHBG10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
 -   **FFMNHANM4.2** log(FFMNHAN10) = SHBG10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #GAMMA IDENTITY ################################################################
 FFMNHANM1 <- glm(FFMNHAN10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
@@ -528,7 +528,7 @@ table1<-compare_performance(FFMNHANM1, FFMNHANM1.2, FFMNHANM2, FFMNHANM2.2, FFMN
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -538,7 +538,7 @@ plot(compare_performance(FFMNHANM1, FFMNHANM1.2, FFMNHANM2, FFMNHANM2.2, FFMNHAN
 
 ### Result for top 4 models: FFMNHANM2, FFMNHANM2.2, FFMNHANM1.2, FFMNHANM1
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(FFMNHANM2, FFMNHANM2.2, FFMNHANM1, FFMNHANM4, type = "html", title="Results")
 ```
 
@@ -546,7 +546,7 @@ stargazer(FFMNHANM2, FFMNHANM2.2, FFMNHANM1, FFMNHANM4, type = "html", title="Re
 
 ### Check best model: FFMNHANM2
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(FFMNHANM2)
 ```
 
@@ -593,7 +593,7 @@ table1<-compare_performance(FFMNHANM5, FFMNHANM5.2, FFMNHANM6, FFMNHANM6.2, FFMN
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -603,7 +603,7 @@ plot(compare_performance(FFMNHANM5, FFMNHANM5.2, FFMNHANM6, FFMNHANM6.2, FFMNHAN
 
 ### Result for top 4 models: FFMNHANM6, FFMNHANM6.2, FFMNHANM5.2, FFMNHANM5
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+```{r message=FALSE, warning=FALSE, results='asis'}
 stargazer(FFMNHANM5, FFMNHANM5.2, FFMNHANM7, FFMNHANM6, type = "html", title="Results")
 ```
 
@@ -611,7 +611,7 @@ stargazer(FFMNHANM5, FFMNHANM5.2, FFMNHANM7, FFMNHANM6, type = "html", title="Re
 
 ### Check best model: FFMNHANM5
 
-```{r echo=FALSE, fig.height=12, fig.width=12}
+```{r fig.height=12, fig.width=12}
 check_model(FFMNHANM5)
 ```
 
@@ -619,7 +619,7 @@ check_model(FFMNHANM5)
 
 ## SHBGM1 = Hormones + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 NSIM<-2999
 
 SHBGM1 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10, data = SWANVISIT10,
@@ -660,7 +660,7 @@ table2 %>%
 
 ## SHBGM8 = Hormones + SKELMM + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 NSIM<-2999
 
 SHBGM8 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + STATUS10 , data = SWANVISIT10, 
@@ -702,7 +702,7 @@ table2 %>%
 
 ## SHBGM13 = Hormones + FFMNHAN + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SHBGM8 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + FFMNHAN10 + STATUS10 , data = SWANVISIT10, 
                Gamma(link = "log"))
 
@@ -744,7 +744,7 @@ table2 %>%
 
 ## SKELMM = Hormones + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SKELMMM2 <- glm(SKELMM10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "SKELMM10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -783,7 +783,7 @@ table2 %>%
 
 ## SKELMM = Hormones + FFMNHAN + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 SKELMMM5.2 <- glm(SKELMM10 ~ SHBG10 + FFMNHAN10 + E2AVE10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "SKELMM10","FFMNHAN10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -824,7 +824,7 @@ table2 %>%
 
 ## FFMNHAN = Hormones + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 FFMNHANM2 <- glm(FFMNHAN10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "FFMNHAN10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -863,7 +863,7 @@ table2 %>%
 
 ## FFMNHAN = Hormones + SKELMM + AGE + STATUS.
 
-```{r echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
 FFMNHANM5 <- glm(FFMNHAN10 ~ SHBG10 + SKELMM10  + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "FFMNHAN10","SKELMM10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))

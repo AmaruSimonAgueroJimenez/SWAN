@@ -262,6 +262,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="continuous-variable-histogram." class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Continuous variable histogram.</h1>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">gather</span>(SWANVISIT10[,<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>]), <span class="fu">aes</span>(value)) <span class="sc">+</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">100</span>) <span class="sc">+</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>key, <span class="at">scales =</span> <span class="st">'free'</span>)<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -281,6 +287,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>“r”&lt;-0.75 or “r”&gt;0.75: excellent predictor.</p></li>
 </ul>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs.panels</span>(SWANVISIT10[,<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>],</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">smooth =</span> <span class="cn">TRUE</span>,      <span class="co"># If TRUE, draws loess smooths</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">scale =</span> <span class="cn">FALSE</span>,      <span class="co"># If TRUE, scales the correlation text font</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,     <span class="co"># If TRUE, adds density plots and histograms</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">TRUE</span>,    <span class="co"># If TRUE, draws ellipses</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"spearman"</span>, <span class="co"># Correlation method (also "spearman" or "kendall")</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">pch =</span> <span class="dv">21</span>,           <span class="co"># pch symbol</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">lm =</span> <span class="cn">FALSE</span>,         <span class="co"># If TRUE, plots linear fit rather than the LOESS (smoothed) fit</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">cor =</span> <span class="cn">TRUE</span>,         <span class="co"># If TRUE, reports correlations</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">jiggle =</span> <span class="cn">FALSE</span>,     <span class="co"># If TRUE, data points are jittered</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">factor =</span> <span class="dv">2</span>,         <span class="co"># Jittering factor</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">"grey70"</span>,       <span class="co"># Histograms color</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,       <span class="co"># If TRUE, adds significance level with stars</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">ci =</span> <span class="cn">TRUE</span>)          <span class="co"># If TRUE, adds confidence intervals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -319,6 +342,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="performance-models." class="level3" data-number="5.1.3">
 <h3 data-number="5.1.3" class="anchored" data-anchor-id="performance-models."><span class="header-section-number">5.1.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -428,6 +457,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(SHBGM1, SHBGM1<span class="fl">.2</span>, SHBGM2, SHBGM2<span class="fl">.2</span>, SHBGM4, SHBGM4<span class="fl">.2</span>, SHBGM5, SHBGM5<span class="fl">.2</span>, SHBGM6, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -439,6 +472,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="result-for-top-4-models-shbgm1-shbgm1.2-shbgm2-shbgm4" class="level3" data-number="5.1.4">
 <h3 data-number="5.1.4" class="anchored" data-anchor-id="result-for-top-4-models-shbgm1-shbgm1.2-shbgm2-shbgm4"><span class="header-section-number">5.1.4</span> Result for top 4 models: SHBGM1, SHBGM1.2, SHBGM2, SHBGM4</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(SHBGM1,SHBGM1<span class="fl">.2</span>, SHBGM2, SHBGM4,<span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -1167,6 +1204,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-shbgm1" class="level3" data-number="5.1.5">
 <h3 data-number="5.1.5" class="anchored" data-anchor-id="check-best-model-shbgm1"><span class="header-section-number">5.1.5</span> Check best model: SHBGM1</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(SHBGM1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1203,6 +1244,12 @@ Akaike Inf. Crit.
 <section id="performance-models.-1" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="performance-models.-1"><span class="header-section-number">5.2.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -1314,6 +1361,10 @@ Akaike Inf. Crit.
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(SHBGM7, SHBGM7<span class="fl">.2</span>, SHBGM8, SHBGM8<span class="fl">.2</span>, SHBGM9, SHBGM9<span class="fl">.2</span>, SHBGM10, SHBGM10<span class="fl">.2</span>, SHBGM11, SHBGM11<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1325,6 +1376,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-shbgm8-shbgm8.2-shbgm7.2-shbgm7" class="level3" data-number="5.2.4">
 <h3 data-number="5.2.4" class="anchored" data-anchor-id="result-for-top-4-models-shbgm8-shbgm8.2-shbgm7.2-shbgm7"><span class="header-section-number">5.2.4</span> Result for top 4 models: SHBGM8, SHBGM8.2, SHBGM7.2, SHBGM7</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(SHBGM8,SHBGM8<span class="fl">.2</span>, SHBGM7<span class="fl">.2</span>, SHBGM7,<span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -2088,6 +2143,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-shbgm8" class="level3" data-number="5.2.5">
 <h3 data-number="5.2.5" class="anchored" data-anchor-id="check-best-model-shbgm8"><span class="header-section-number">5.2.5</span> Check best model: SHBGM8</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(SHBGM8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2124,6 +2183,12 @@ Akaike Inf. Crit.
 <section id="performance-models.-2" class="level3" data-number="5.3.3">
 <h3 data-number="5.3.3" class="anchored" data-anchor-id="performance-models.-2"><span class="header-section-number">5.3.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -2235,6 +2300,10 @@ Akaike Inf. Crit.
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(SHBGM12, SHBGM12<span class="fl">.2</span>, SHBGM13, SHBGM13<span class="fl">.2</span>, SHBGM14, SHBGM14<span class="fl">.2</span>, SHBGM15, SHBGM15<span class="fl">.2</span>, SHBGM16, SHBGM16<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2246,6 +2315,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-shbgm13-shbgm13.2-shbgm12-shbgm12.2" class="level3" data-number="5.3.4">
 <h3 data-number="5.3.4" class="anchored" data-anchor-id="result-for-top-4-models-shbgm13-shbgm13.2-shbgm12-shbgm12.2"><span class="header-section-number">5.3.4</span> Result for top 4 models: SHBGM13, SHBGM13.2, SHBGM12, SHBGM12.2</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(SHBGM13,SHBGM13<span class="fl">.2</span>, SHBGM12, SHBGM12<span class="fl">.2</span>,<span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -3009,6 +3082,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-shbgm13" class="level3" data-number="5.3.5">
 <h3 data-number="5.3.5" class="anchored" data-anchor-id="check-best-model-shbgm13"><span class="header-section-number">5.3.5</span> Check best model: SHBGM13</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(SHBGM13)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3046,6 +3123,12 @@ Akaike Inf. Crit.
 <section id="performance-models.-3" class="level3" data-number="6.1.3">
 <h3 data-number="6.1.3" class="anchored" data-anchor-id="performance-models.-3"><span class="header-section-number">6.1.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -3140,6 +3223,10 @@ Akaike Inf. Crit.
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(SKELMMM1, SKELMMM1<span class="fl">.2</span>, SKELMMM2, SKELMMM2<span class="fl">.2</span>, SKELMMM3, SKELMMM3<span class="fl">.2</span>, SKELMMM4, SKELMMM4<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -3151,6 +3238,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-skelmmm2-skelmmm2.2-skelmmm1.2-skelmmm1" class="level3" data-number="6.1.4">
 <h3 data-number="6.1.4" class="anchored" data-anchor-id="result-for-top-4-models-skelmmm2-skelmmm2.2-skelmmm1.2-skelmmm1"><span class="header-section-number">6.1.4</span> Result for top 4 models: SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(SKELMMM2, SKELMMM2<span class="fl">.2</span>, SKELMMM1<span class="fl">.2</span>, SKELMMM1, <span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -3914,6 +4005,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-skelmmm2" class="level3" data-number="6.1.5">
 <h3 data-number="6.1.5" class="anchored" data-anchor-id="check-best-model-skelmmm2"><span class="header-section-number">6.1.5</span> Check best model: SKELMMM2</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(SKELMMM2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4051,6 +4146,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-skelmmm5.2skelmmm5-skelmmm7.2-skelmmm7" class="level3" data-number="6.2.4">
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="result-for-top-4-models-skelmmm5.2skelmmm5-skelmmm7.2-skelmmm7"><span class="header-section-number">6.2.4</span> Result for top 4 models: SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(SKELMMM5<span class="fl">.2</span>,SKELMMM5, SKELMMM7<span class="fl">.2</span>, SKELMMM7,<span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -4861,6 +4960,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-skelmmm5.2" class="level3" data-number="6.2.5">
 <h3 data-number="6.2.5" class="anchored" data-anchor-id="check-best-model-skelmmm5.2"><span class="header-section-number">6.2.5</span> Check best model: SKELMMM5.2</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(SKELMMM5<span class="fl">.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -4893,10 +4996,43 @@ Akaike Inf. Crit.
 <li><strong>FFMNHANM4</strong>: log(FFMNHAN10) = SHBG10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10</li>
 <li><strong>FFMNHANM4.2</strong> log(FFMNHAN10) = SHBG10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10</li>
 </ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#GAMMA IDENTITY ################################################################</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>FFMNHANM1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> TSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>FFMNHANM1<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> FSH10  <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#GAMMA LOG #####################################################################</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>FFMNHANM2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>FFMNHANM2<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10  <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">#GAUSSIAN IDENTITY #############################################################</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>FFMNHANM3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>             <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>FFMNHANM3<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10  <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>             <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">#GAUSSIAN LOG ##################################################################</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>FFMNHANM4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>             <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>FFMNHANM4<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10  <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>             <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>table1<span class="ot">&lt;-</span><span class="fu">compare_performance</span>(FFMNHANM1, FFMNHANM1<span class="fl">.2</span>, FFMNHANM2, FFMNHANM2<span class="fl">.2</span>, FFMNHANM3, FFMNHANM3<span class="fl">.2</span>, FFMNHANM4, FFMNHANM4<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="performance-models.-5" class="level3" data-number="7.1.3">
 <h3 data-number="7.1.3" class="anchored" data-anchor-id="performance-models.-5"><span class="header-section-number">7.1.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -4993,6 +5129,10 @@ Akaike Inf. Crit.
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(FFMNHANM1, FFMNHANM1<span class="fl">.2</span>, FFMNHANM2, FFMNHANM2<span class="fl">.2</span>, FFMNHANM3, FFMNHANM3<span class="fl">.2</span>, FFMNHANM4, FFMNHANM4<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5004,6 +5144,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-ffmnhanm2-ffmnhanm2.2-ffmnhanm1.2-ffmnhanm1" class="level3" data-number="7.1.4">
 <h3 data-number="7.1.4" class="anchored" data-anchor-id="result-for-top-4-models-ffmnhanm2-ffmnhanm2.2-ffmnhanm1.2-ffmnhanm1"><span class="header-section-number">7.1.4</span> Result for top 4 models: FFMNHANM2, FFMNHANM2.2, FFMNHANM1.2, FFMNHANM1</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(FFMNHANM2, FFMNHANM2<span class="fl">.2</span>, FFMNHANM1, FFMNHANM4, <span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -5777,6 +5921,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-ffmnhanm2" class="level3" data-number="7.1.5">
 <h3 data-number="7.1.5" class="anchored" data-anchor-id="check-best-model-ffmnhanm2"><span class="header-section-number">7.1.5</span> Check best model: FFMNHANM2</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(FFMNHANM2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5810,6 +5958,12 @@ Akaike Inf. Crit.
 <section id="performance-models.-6" class="level3" data-number="7.2.3">
 <h3 data-number="7.2.3" class="anchored" data-anchor-id="performance-models.-6"><span class="header-section-number">7.2.3</span> Performance models.</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(table1, <span class="at">caption =</span> <span class="st">"Performance models comparision"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> T, <span class="at">font_size =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">collapse_rows</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">"HOLD_position"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Performance models comparision</caption>
@@ -5902,6 +6056,10 @@ Akaike Inf. Crit.
 
 
 </div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">compare_performance</span>(FFMNHANM5, FFMNHANM5<span class="fl">.2</span>, FFMNHANM6, FFMNHANM6<span class="fl">.2</span>, FFMNHANM7, FFMNHANM7<span class="fl">.2</span>, FFMNHANM8, FFMNHANM8<span class="fl">.2</span>, <span class="at">rank =</span> <span class="cn">TRUE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -5913,6 +6071,10 @@ Akaike Inf. Crit.
 </section>
 <section id="result-for-top-4-models-ffmnhanm6-ffmnhanm6.2-ffmnhanm5.2-ffmnhanm5" class="level3" data-number="7.2.4">
 <h3 data-number="7.2.4" class="anchored" data-anchor-id="result-for-top-4-models-ffmnhanm6-ffmnhanm6.2-ffmnhanm5.2-ffmnhanm5"><span class="header-section-number">7.2.4</span> Result for top 4 models: FFMNHANM6, FFMNHANM6.2, FFMNHANM5.2, FFMNHANM5</h3>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(FFMNHANM5, FFMNHANM5<span class="fl">.2</span>, FFMNHANM7, FFMNHANM6, <span class="at">type =</span> <span class="st">"html"</span>, <span class="at">title=</span><span class="st">"Results"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <table style="text-align:center">
 <caption>
 <strong>Results</strong>
@@ -6731,6 +6893,10 @@ Akaike Inf. Crit.
 <section id="check-best-model-ffmnhanm5" class="level3" data-number="7.2.5">
 <h3 data-number="7.2.5" class="anchored" data-anchor-id="check-best-model-ffmnhanm5"><span class="header-section-number">7.2.5</span> Check best model: FFMNHANM5</h3>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(FFMNHANM5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6747,6 +6913,44 @@ Akaike Inf. Crit.
 <section id="shbgm1-hormones-age-status." class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="shbgm1-hormones-age-status."><span class="header-section-number">8.1</span> SHBGM1 = Hormones + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>NSIM<span class="ot">&lt;-</span><span class="dv">2999</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>SHBGM1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span>  T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>SHBG10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span>  T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>SHBG10, pred_results)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6759,6 +6963,45 @@ Akaike Inf. Crit.
 <section id="shbgm8-hormones-skelmm-age-status." class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="shbgm8-hormones-skelmm-age-status."><span class="header-section-number">8.2</span> SHBGM8 = Hormones + SKELMM + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>NSIM<span class="ot">&lt;-</span><span class="dv">2999</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>SHBGM8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span> T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> SKELMM10 <span class="sc">+</span> STATUS10 , <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>               <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"SKELMM10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>SHBG10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span>  T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> SKELMM10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>SHBG10, pred_results)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6771,6 +7014,43 @@ Akaike Inf. Crit.
 <section id="shbgm13-hormones-ffmnhan-age-status." class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="shbgm13-hormones-ffmnhan-age-status."><span class="header-section-number">8.3</span> SHBGM13 = Hormones + FFMNHAN + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>SHBGM8 <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span> T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> FFMNHAN10 <span class="sc">+</span> STATUS10 , <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>               <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"FFMNHAN10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>SHBG10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(SHBG10 <span class="sc">~</span>  T10 <span class="sc">+</span> FSH10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> AGE10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> FFMNHAN10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>SHBG10, pred_results)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6786,6 +7066,42 @@ Akaike Inf. Crit.
 <section id="skelmm-hormones-age-status." class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="skelmm-hormones-age-status."><span class="header-section-number">9.1</span> SKELMM = Hormones + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>SKELMMM2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(SKELMM10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"SKELMM10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>SKELMM10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(SKELMM10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>SKELMM10, pred_results)</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6798,6 +7114,42 @@ Akaike Inf. Crit.
 <section id="skelmm-hormones-ffmnhan-age-status." class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="skelmm-hormones-ffmnhan-age-status."><span class="header-section-number">9.2</span> SKELMM = Hormones + FFMNHAN + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>SKELMMM5<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(SKELMM10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> FFMNHAN10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"SKELMM10"</span>,<span class="st">"FFMNHAN10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>SKELMM10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(SKELMM10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> FFMNHAN10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>SKELMM10, pred_results)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6813,6 +7165,42 @@ Akaike Inf. Crit.
 <section id="ffmnhan-hormones-age-status." class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="ffmnhan-hormones-age-status."><span class="header-section-number">10.1</span> FFMNHAN = Hormones + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>FFMNHANM2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"FFMNHAN10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>FFMNHAN10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> TSH10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>FFMNHAN10, pred_results)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6825,6 +7213,42 @@ Akaike Inf. Crit.
 <section id="ffmnhan-hormones-skelmm-age-status." class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="ffmnhan-hormones-skelmm-age-status."><span class="header-section-number">10.2</span> FFMNHAN = Hormones + SKELMM + AGE + STATUS.</h2>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>FFMNHANM5 <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> SKELMM10  <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> TSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span> SWANVISIT10, </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>             <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"identity"</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>TEST<span class="ot">&lt;-</span> <span class="fu">drop_na</span>(SWANVISIT10, <span class="fu">c</span>(<span class="st">"SHBG10"</span>, <span class="st">"FFMNHAN10"</span>,<span class="st">"SKELMM10"</span>, <span class="st">"T10"</span>, <span class="st">"FSH10"</span>, <span class="st">"E2AVE10"</span>, <span class="st">"TSH10"</span>, <span class="st">"AGE10"</span>, <span class="st">"DHAS10"</span>, <span class="st">"STATUS10"</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>folds<span class="ot">&lt;-</span><span class="fu">c</span>()</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>fold_cv<span class="ot">&lt;-</span><span class="fu">c</span>() </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>table2<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="fu">matrix</span>(<span class="at">nrow =</span> NSIM, <span class="at">ncol =</span> <span class="dv">2</span>)) </span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(table2) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"MEAN"</span>,<span class="st">"SD"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>NSIM) {</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  folds[[i]] <span class="ot">&lt;-</span> <span class="fu">createFolds</span>(TEST<span class="sc">$</span>FFMNHAN10, <span class="at">k=</span><span class="dv">5</span>) </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  fold_cv[[i]] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(folds[[i]], <span class="cf">function</span>(x){</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    TEST_train <span class="ot">&lt;-</span> TEST[<span class="sc">-</span>x, ]</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>    TEST_test <span class="ot">&lt;-</span> TEST[x, ]</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    TEST_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(FFMNHAN10 <span class="sc">~</span> SHBG10 <span class="sc">+</span> SKELMM10  <span class="sc">+</span> T10 <span class="sc">+</span> E2AVE10 <span class="sc">+</span> FSH10 <span class="sc">+</span> TSH10 <span class="sc">+</span> DHAS10 <span class="sc">+</span> AGE10 <span class="sc">+</span> STATUS10, <span class="at">data =</span>  TEST_test, </span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>    pred_results <span class="ot">&lt;-</span> TEST_model<span class="sc">$</span>fitted.values</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    pred_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(TEST_test<span class="sc">$</span>FFMNHAN10, pred_results)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pred_cor)</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">1</span>]<span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>  table2[i,<span class="dv">2</span>]<span class="ot">&lt;-</span> <span class="fu">sd</span>(<span class="fu">unlist</span>(fold_cv[[i]]))</span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIlwr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>table2<span class="sc">$</span>CIupr<span class="ot">&lt;-</span> table2<span class="sc">$</span>MEAN <span class="sc">+</span> <span class="fu">quantile</span>(distributions3<span class="sc">::</span><span class="fu">StudentsT</span>(<span class="at">df =</span> <span class="dv">4</span>), <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span> <span class="dv">2</span>) <span class="sc">*</span> table2<span class="sc">$</span>SD <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">4</span>)</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a>table2 <span class="sc">%&gt;%</span> </span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>NSIM, <span class="at">y =</span> MEAN)) <span class="sc">+</span> </span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CIlwr, <span class="at">ymax =</span> CIupr), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">fill =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">"blue"</span>,<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Simulation"</span>)<span class="sc">+</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -6836,39 +7260,39 @@ Akaike Inf. Crit.
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>comparaciones <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Late perimenopause"</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Pre-menopausal"</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Post-menopausal"</span>),</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Early perimenopause"</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Pre-menopausal"</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Post-menopausal"</span>),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Early perimenopause"</span>),</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Post-menopausal"</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Early perimenopause"</span>),</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Early perimenopause"</span>),</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Early perimenopause"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Early perimenopause"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Unknown due to hormones (HT) use"</span>, <span class="st">"Unknown due to hysterectomy"</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(SWANVISIT10 <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(STATUS10), <span class="at">x =</span> <span class="st">"STATUS10"</span>, <span class="at">y =</span> <span class="st">"SHBG10"</span>,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">"mean_se"</span>, <span class="co"># Agregar media y error estándar</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"STATUS10"</span>, <span class="at">fill =</span> <span class="st">"STATUS10"</span>, <span class="co"># Colorear según STATUS10</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"jco"</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># Elegir una paleta de colores</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"anova"</span>) <span class="sc">+</span> <span class="co"># Realizar ANOVA</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">comparisons =</span> comparaciones,</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"t.test"</span>, </span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">+</span> <span class="co"># Ajustar con Bonferroni</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust =</span> <span class="dv">1</span>))<span class="co"># Ajustar con Bonferroni</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>comparaciones <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Late perimenopause"</span>),</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Pre-menopausal"</span>),</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Post-menopausal"</span>),</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Early perimenopause"</span>),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Hysterectomy/both ovaries removed"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Pre-menopausal"</span>),</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Post-menopausal"</span>),</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Early perimenopause"</span>),</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Late perimenopause"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Post-menopausal"</span>),</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Early perimenopause"</span>),</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Pre-menopausal"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Early perimenopause"</span>),</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Post-menopausal"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Early perimenopause"</span>, <span class="st">"Unknown due to hormones (HT) use"</span>),</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Early perimenopause"</span>, <span class="st">"Unknown due to hysterectomy"</span>),</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Unknown due to hormones (HT) use"</span>, <span class="st">"Unknown due to hysterectomy"</span>)</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(SWANVISIT10 <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(STATUS10), <span class="at">x =</span> <span class="st">"STATUS10"</span>, <span class="at">y =</span> <span class="st">"SHBG10"</span>,</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">"mean_se"</span>, <span class="co"># Agregar media y error estándar</span></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"STATUS10"</span>, <span class="at">fill =</span> <span class="st">"STATUS10"</span>, <span class="co"># Colorear según STATUS10</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"jco"</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># Elegir una paleta de colores</span></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"anova"</span>) <span class="sc">+</span> <span class="co"># Realizar ANOVA</span></span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">comparisons =</span> comparaciones,</span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"t.test"</span>, </span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">+</span> <span class="co"># Ajustar con Bonferroni</span></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust =</span> <span class="dv">1</span>))<span class="co"># Ajustar con Bonferroni</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -6879,15 +7303,15 @@ Akaike Inf. Crit.
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(SWANVISIT10 <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(STATUS10), <span class="at">x =</span> <span class="st">"STATUS10"</span>, <span class="at">y =</span> <span class="st">"SKELMM10"</span>,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">"mean_se"</span>, <span class="co"># Agregar media y error estándar</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"STATUS10"</span>, <span class="at">fill =</span> <span class="st">"STATUS10"</span>, <span class="co"># Colorear según STATUS10</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"jco"</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># Elegir una paleta de colores</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"anova"</span>) <span class="sc">+</span> <span class="co"># Realizar ANOVA</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">comparisons =</span> comparaciones,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"t.test"</span>, </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)  <span class="sc">+</span> <span class="co"># Ajustar con Bonferroni</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co"># Ajustar con Bonferroni</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggbarplot</span>(SWANVISIT10 <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(STATUS10), <span class="at">x =</span> <span class="st">"STATUS10"</span>, <span class="at">y =</span> <span class="st">"SKELMM10"</span>,</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">"mean_se"</span>, <span class="co"># Agregar media y error estándar</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"STATUS10"</span>, <span class="at">fill =</span> <span class="st">"STATUS10"</span>, <span class="co"># Colorear según STATUS10</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"jco"</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> <span class="co"># Elegir una paleta de colores</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">method =</span> <span class="st">"anova"</span>) <span class="sc">+</span> <span class="co"># Realizar ANOVA</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_compare_means</span>(<span class="at">comparisons =</span> comparaciones,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">method =</span> <span class="st">"t.test"</span>, </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)  <span class="sc">+</span> <span class="co"># Ajustar con Bonferroni</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">60</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="co"># Ajustar con Bonferroni</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
