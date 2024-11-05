@@ -25,12 +25,11 @@ install_and_load_packages <- function(packages) {
   }
 }
 
-necessary_packages <- c("readstata13", "knitr", "tidyverse", "naniar", "writexl", "rcompanion", "performance","caret", "psych", "kableExtra", "stargazer")
+necessary_packages <- c("readstata13", "knitr", "tidyverse", "naniar", "writexl", "rcompanion", "performance","caret", "psych", "kableExtra", "stargazer","ggpubr")
 
 install_and_load_packages(necessary_packages)
 
 opts_chunk$set(
-  echo = TRUE,
   warning = FALSE,
   message = FALSE
 )
@@ -900,3 +899,51 @@ table2 %>%
   ylab("Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%")
 
 ```
+
+```{r fig.height=14, fig.width=12}
+comparaciones <- list(
+  c("Hysterectomy/both ovaries removed", "Late perimenopause"),
+  c("Hysterectomy/both ovaries removed", "Pre-menopausal"),
+  c("Hysterectomy/both ovaries removed", "Post-menopausal"),
+  c("Hysterectomy/both ovaries removed", "Early perimenopause"),
+  c("Hysterectomy/both ovaries removed", "Unknown due to hormones (HT) use"),
+  c("Hysterectomy/both ovaries removed", "Unknown due to hysterectomy"),
+  c("Late perimenopause", "Pre-menopausal"),
+  c("Late perimenopause", "Post-menopausal"),
+  c("Late perimenopause", "Early perimenopause"),
+  c("Late perimenopause", "Unknown due to hormones (HT) use"),
+  c("Late perimenopause", "Unknown due to hysterectomy"),
+  c("Pre-menopausal", "Post-menopausal"),
+  c("Pre-menopausal", "Early perimenopause"),
+  c("Pre-menopausal", "Unknown due to hormones (HT) use"),
+  c("Pre-menopausal", "Unknown due to hysterectomy"),
+  c("Post-menopausal", "Early perimenopause"),
+  c("Post-menopausal", "Unknown due to hormones (HT) use"),
+  c("Post-menopausal", "Unknown due to hysterectomy"),
+  c("Early perimenopause", "Unknown due to hormones (HT) use"),
+  c("Early perimenopause", "Unknown due to hysterectomy"),
+  c("Unknown due to hormones (HT) use", "Unknown due to hysterectomy")
+)
+
+ggbarplot(SWANVISIT10 %>% drop_na(STATUS10), x = "STATUS10", y = "SHBG10",
+          add = "mean_se", # Agregar media y error estándar
+          color = "STATUS10", fill = "STATUS10", # Colorear según STATUS10
+          palette = "jco", alpha=0.7) + # Elegir una paleta de colores
+  stat_compare_means(method = "anova") + # Realizar ANOVA
+  stat_compare_means(comparisons = comparaciones,
+                     method = "t.test", 
+                     p.adjust.method = "bonferroni") + # Ajustar con Bonferroni
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))# Ajustar con Bonferroni
+
+ggbarplot(SWANVISIT10 %>% drop_na(STATUS10), x = "STATUS10", y = "SKELMM10",
+          add = "mean_se", # Agregar media y error estándar
+          color = "STATUS10", fill = "STATUS10", # Colorear según STATUS10
+          palette = "jco", alpha=0.7) + # Elegir una paleta de colores
+  stat_compare_means(method = "anova") + # Realizar ANOVA
+  stat_compare_means(comparisons = comparaciones,
+                     method = "t.test", 
+                     p.adjust.method = "bonferroni")  + # Ajustar con Bonferroni
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) # Ajustar con Bonferroni
+
+```
+
