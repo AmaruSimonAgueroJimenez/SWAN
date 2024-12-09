@@ -47,8 +47,17 @@ SWANVISIT10<-SWAN_USA_VISIT10_06_08%>% select(SHBG10, #Sex hormone-binding globu
                                               FFMNHAN10,
                                               BMI10,
                                               AGE10,
-                                              DHAS10, #Dehydroepiandrosterone sulfate (ug/dL) 
-                                              STATUS10) #Menopausal status: label: 1 Hysterectomy/both ovaries removed;2 Post-menopausal; 3 Late Peri;4 Early Peri;5 Pre-menopausal; 6 Pregnant/breastfeeding; 7 Unknown due to HT use; 8 Unknown due to hysterectomy 
+                                              DHAS10,
+                                              QLTYLIF10,
+                                              PBFBIA10,
+                                              #Dehydroepiandrosterone sulfate (ug/dL) 
+                                              STATUS10, #Menopausal status: label: 1 Hysterectomy/both ovaries removed;2 Post-menopausal; 3 Late Peri;4 Early Peri;5 Pre-menopausal; 6 Pregnant/breastfeeding; 7 Unknown due to HT use; 8 Unknown due to hysterectomy 
+                                              STEROI110,
+                                              ARTHRT110,
+                                              OSTEOAR10,
+                                              OSTEOPR10,
+                                              V_ACTI10,
+                                              EXERCIS10) 
                                                
 ```
 
@@ -74,8 +83,8 @@ SWANVISIT10<-SWAN_USA_VISIT10_06_08%>% select(SHBG10, #Sex hormone-binding globu
 
 # Continuous variable histogram.
 
-```{r warning=FALSE}
-ggplot(gather(SWANVISIT10[,1:11]), aes(value)) + 
+```{r}
+ggplot(gather(SWANVISIT10[,1:13]), aes(value)) + 
   geom_histogram(bins = 100) + 
   facet_wrap(~key, scales = 'free')+theme_minimal()
 ```
@@ -92,8 +101,11 @@ ggplot(gather(SWANVISIT10[,1:11]), aes(value)) +
 
 -   "r"\<-0.75 or "r"\>0.75: excellent predictor.
 
-```{r fig.height=8.5, fig.width=8.5, warning=FALSE}
-pairs.panels(SWANVISIT10[,1:11],
+```{r}
+#| fig-width: 8.5
+#| fig-height: 8.5
+
+pairs.panels(SWANVISIT10[,1:13],
              smooth = TRUE,      # If TRUE, draws loess smooths
              scale = FALSE,      # If TRUE, scales the correlation text font
              density = TRUE,     # If TRUE, adds density plots and histograms
@@ -134,7 +146,7 @@ pairs.panels(SWANVISIT10[,1:11],
 -   **SHBGM5.2** log(SHBG10) = FSH10 + E2AVE10 + TSH10 + DHAS10 + STATUS10
 -   **SHBGM6**: 1/SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + DHAS10 + STATUS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #Dependent variable: SHBG#######################################################
 #GAMMA IDENTITY ################################################################
 SHBGM1 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10, data = SWANVISIT10, 
@@ -179,7 +191,7 @@ plot(compare_performance(SHBGM1, SHBGM1.2, SHBGM2, SHBGM2.2, SHBGM4, SHBGM4.2, S
 
 ### Result for top 4 models: SHBGM1, SHBGM1.2, SHBGM2, SHBGM4
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 ```
 
@@ -187,7 +199,10 @@ stargazer(SHBGM1,SHBGM1.2, SHBGM2, SHBGM4,type = "html", title="Results")
 
 ### Check best model: SHBGM1
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(SHBGM1)
 ```
 
@@ -211,7 +226,7 @@ check_model(SHBGM1)
 -   **SHBGM11**: 1/SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + SKELMM10 + DHAS10 + STATUS10 + STATUS10
 -   **SHBGM11.2**: 1/SHBG10 = FSH10 + E2AVE10 + AGE10 + SKELMM10 + DHAS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #Dependent variable: SHBG#######################################################
 #GAMMA IDENTITY ################################################################
 SHBGM7 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + STATUS10, data = SWANVISIT10, 
@@ -258,7 +273,7 @@ plot(compare_performance(SHBGM7, SHBGM7.2, SHBGM8, SHBGM8.2, SHBGM9, SHBGM9.2, S
 
 ### Result for top 4 models: SHBGM8, SHBGM8.2, SHBGM7.2, SHBGM7
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 ```
 
@@ -266,7 +281,10 @@ stargazer(SHBGM8,SHBGM8.2, SHBGM7.2, SHBGM7,type = "html", title="Results")
 
 ### Check best model: SHBGM8
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(SHBGM8)
 ```
 
@@ -290,7 +308,7 @@ check_model(SHBGM8)
 -   **SHBGM16**: 1/SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + FFMNHAN10 + DHAS10 + STATUS10 + STATUS10
 -   **SHBGM16.2**: 1/SHBG10 = FSH10 + E2AVE10 + AGE10 + FFMNHAN10 + DHAS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #Dependent variable: SHBG#######################################################
 #GAMMA IDENTITY ################################################################
 SHBGM12 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + FFMNHAN10 + STATUS10, data = SWANVISIT10, 
@@ -337,7 +355,7 @@ plot(compare_performance(SHBGM12, SHBGM12.2, SHBGM13, SHBGM13.2, SHBGM14, SHBGM1
 
 ### Result for top 4 models: SHBGM13, SHBGM13.2, SHBGM12, SHBGM12.2
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 ```
 
@@ -345,7 +363,10 @@ stargazer(SHBGM13,SHBGM13.2, SHBGM12, SHBGM12.2,type = "html", title="Results")
 
 ### Check best model: SHBGM13
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(SHBGM13)
 ```
 
@@ -369,7 +390,7 @@ check_model(SHBGM13)
 -   **SKELMMM4**: log(SKELMM10) = SHBG10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
 -   **SKELMMM4.2** log(SKELMM10) = SHBG10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #GAMMA IDENTITY ################################################################
 SKELMMM1 <- glm(SKELMM10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
@@ -406,7 +427,7 @@ plot(compare_performance(SKELMMM1, SKELMMM1.2, SKELMMM2, SKELMMM2.2, SKELMMM3, S
 
 ### Result for top 4 models: SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1, type = "html", title="Results")
 ```
 
@@ -414,7 +435,10 @@ stargazer(SKELMMM2, SKELMMM2.2, SKELMMM1.2, SKELMMM1, type = "html", title="Resu
 
 ### Check best model: SKELMMM2
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(SKELMMM2)
 ```
 
@@ -434,7 +458,7 @@ check_model(SKELMMM2)
 -   **SKELMMM8**: log(SKELMM10) = SHBG10 + FFMNHAN10 + T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10
 -   **SKELMMM8.2** log(SKELMM10) = SHBG10 + FFMNHAN10 + T10 + FSH10 + AGE10 + DHAS10 + STATUS10
 
-```{r include=FALSE}
+```{r}
 #GAMMA IDENTITY ################################################################
 SKELMMM5 <- glm(SKELMM10 ~ SHBG10 + FFMNHAN10 + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
@@ -461,7 +485,7 @@ table1<-compare_performance(SKELMMM5, SKELMMM5.2, SKELMMM6, SKELMMM6.2, SKELMMM7
 
 ### Performance models.
 
-```{r echo=FALSE}
+```{r}
 kable(table1, caption = "Performance models comparision") %>%
   kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
   kable_styling(latex_options = "HOLD_position")
@@ -471,7 +495,7 @@ plot(compare_performance(SKELMMM5, SKELMMM5.2, SKELMMM6, SKELMMM6.2, SKELMMM7, S
 
 ### Result for top 4 models: SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Results")
 ```
 
@@ -479,7 +503,10 @@ stargazer(SKELMMM5.2,SKELMMM5, SKELMMM7.2, SKELMMM7,type = "html", title="Result
 
 ### Check best model: SKELMMM5.2
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(SKELMMM5.2)
 ```
 
@@ -538,7 +565,7 @@ plot(compare_performance(FFMNHANM1, FFMNHANM1.2, FFMNHANM2, FFMNHANM2.2, FFMNHAN
 
 ### Result for top 4 models: FFMNHANM2, FFMNHANM2.2, FFMNHANM1.2, FFMNHANM1
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(FFMNHANM2, FFMNHANM2.2, FFMNHANM1, FFMNHANM4, type = "html", title="Results")
 ```
 
@@ -546,7 +573,10 @@ stargazer(FFMNHANM2, FFMNHANM2.2, FFMNHANM1, FFMNHANM4, type = "html", title="Re
 
 ### Check best model: FFMNHANM2
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(FFMNHANM2)
 ```
 
@@ -603,7 +633,7 @@ plot(compare_performance(FFMNHANM5, FFMNHANM5.2, FFMNHANM6, FFMNHANM6.2, FFMNHAN
 
 ### Result for top 4 models: FFMNHANM6, FFMNHANM6.2, FFMNHANM5.2, FFMNHANM5
 
-```{r message=FALSE, warning=FALSE, results='asis'}
+```{r results='asis'}
 stargazer(FFMNHANM5, FFMNHANM5.2, FFMNHANM7, FFMNHANM6, type = "html", title="Results")
 ```
 
@@ -611,7 +641,10 @@ stargazer(FFMNHANM5, FFMNHANM5.2, FFMNHANM7, FFMNHANM6, type = "html", title="Re
 
 ### Check best model: FFMNHANM5
 
-```{r fig.height=12, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
 check_model(FFMNHANM5)
 ```
 
@@ -619,7 +652,10 @@ check_model(FFMNHANM5)
 
 ## SHBGM1 = Hormones + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 NSIM<-2999
 
 SHBGM1 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + STATUS10, data = SWANVISIT10,
@@ -660,7 +696,10 @@ table2 %>%
 
 ## SHBGM8 = Hormones + SKELMM + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 NSIM<-2999
 
 SHBGM8 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + STATUS10 , data = SWANVISIT10, 
@@ -702,7 +741,10 @@ table2 %>%
 
 ## SHBGM13 = Hormones + FFMNHAN + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 SHBGM8 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + FFMNHAN10 + STATUS10 , data = SWANVISIT10, 
                Gamma(link = "log"))
 
@@ -744,7 +786,10 @@ table2 %>%
 
 ## SKELMM = Hormones + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 SKELMMM2 <- glm(SKELMM10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "SKELMM10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -783,7 +828,10 @@ table2 %>%
 
 ## SKELMM = Hormones + FFMNHAN + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 SKELMMM5.2 <- glm(SKELMM10 ~ SHBG10 + FFMNHAN10 + E2AVE10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "SKELMM10","FFMNHAN10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -824,7 +872,10 @@ table2 %>%
 
 ## FFMNHAN = Hormones + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 FFMNHANM2 <- glm(FFMNHAN10 ~ SHBG10 + T10 + E2AVE10 + FSH10 + DHAS10 + AGE10 + TSH10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "log"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "FFMNHAN10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -863,7 +914,10 @@ table2 %>%
 
 ## FFMNHAN = Hormones + SKELMM + AGE + STATUS.
 
-```{r fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
 FFMNHANM5 <- glm(FFMNHAN10 ~ SHBG10 + SKELMM10  + T10 + E2AVE10 + FSH10 + TSH10 + DHAS10 + AGE10 + STATUS10, data = SWANVISIT10, 
              Gamma(link = "identity"))
 TEST<- drop_na(SWANVISIT10, c("SHBG10", "FFMNHAN10","SKELMM10", "T10", "FSH10", "E2AVE10", "TSH10", "AGE10", "DHAS10", "STATUS10"))
@@ -900,7 +954,10 @@ table2 %>%
 
 ```
 
-```{r fig.height=14, fig.width=12}
+```{r}
+#| fig-width: 12
+#| fig-height: 14
+
 comparaciones <- list(
   c("Hysterectomy/both ovaries removed", "Late perimenopause"),
   c("Hysterectomy/both ovaries removed", "Pre-menopausal"),
@@ -944,6 +1001,277 @@ ggbarplot(SWANVISIT10 %>% drop_na(STATUS10), x = "STATUS10", y = "SKELMM10",
                      method = "t.test", 
                      p.adjust.method = "bonferroni")  + # Ajustar con Bonferroni
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) # Ajustar con Bonferroni
+```
+
+# Generalized linear regression models (GLM) for dependent variable: SHBG
+
+## Independent variable: Hormones + SKELMM + AGE + STATUS + OTHERS.
+
+### Gamma models:
+
+-   **SHBGM17**: SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM17.2**: SHBG10 = FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM18**: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM18.2** log(SHBG10) = FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+
+### Gaussian models:
+
+-   **SHBGM19**: SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM19.2**: SHBG10 = FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM20**: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM20.2** log(SHBG10) = FSH10 + E2AVE10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM21**: 1/SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SHBGM21.2**: 1/SHBG10 = FSH10 + E2AVE10 + AGE10 + DHAS + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+
+```{r}
+# Lista de columnas a modificar
+variables_a_modificar <- c("STEROI110", "ARTHRT110", "OSTEOAR10", "OSTEOPR10", "EXERCIS10")
+
+# Aplicar la transformación a todas las columnas seleccionadas
+SWANVISIT10 <- SWANVISIT10 %>%
+  mutate(across(all_of(variables_a_modificar), ~ case_when(
+    . == "No"  ~ "No",
+    . == "Yes" ~ "Yes",
+    TRUE ~ NA_character_
+  ))) %>%
+  mutate(across(all_of(variables_a_modificar), factor)) %>%  # Reconversión a factor
+  mutate(V_ACTI10 = case_when(
+    V_ACTI10 %in% c("Missing", "Do not know", "Refused", "N/A") ~ NA_character_,
+    TRUE ~ V_ACTI10  # Mantener el resto de valores iguales
+  )) %>%
+  mutate(V_ACTI10 = factor(V_ACTI10))
+
+
+#Dependent variable: SHBG#######################################################
+#GAMMA IDENTITY ################################################################
+SHBGM17 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 , data = SWANVISIT10, 
+               Gamma(link = "identity"))
+
+SHBGM17.2 <- glm(SHBG10 ~ FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               Gamma(link = "identity"))
+
+#GAMMA LOG #####################################################################
+SHBGM18 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               Gamma(link = "log"))
+
+SHBGM18.2 <- glm(SHBG10 ~ FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10 , data = SWANVISIT10, 
+               Gamma(link = "log"))
+
+#GAMMA INVERSE NO RUN ##########################################################
+# SHBGM3 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10+ STATUS10 , data = SWANVISIT10,
+#               Gamma(link = "inverse"))
+# SHBGM3.2 <- glm(SHBG10 ~ FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10  + STATUS10 , data = SWANVISIT10,Gamma(link = "inverse"))
+
+#GAUSSIAN IDENTITY #############################################################
+SHBGM19 <- glm(SHBG10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               gaussian(link = "identity"))
+
+SHBGM19.2 <- glm(SHBG10 ~ FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               gaussian(link = "identity"))
+
+#GAUSSIAN LOG ##################################################################
+SHBGM20 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10  + EXERCIS10 , data = SWANVISIT10, 
+               gaussian(link = "log"))
+
+SHBGM20.2 <- glm(SHBG10 ~ FSH10 + E2AVE10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10  + EXERCIS10 , data = SWANVISIT10, 
+               gaussian(link = "log"))
+
+#GAUSSIAN INVERSE  #############################################################
+SHBGM21 <- glm(SHBG10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10  + EXERCIS10, data = SWANVISIT10,
+              gaussian(link = "inverse"))
+SHBGM21.2 <- glm(SHBG10 ~ FSH10 + E2AVE10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10,
+              gaussian(link = "inverse"))
+
+table1<-compare_performance(SHBGM17, SHBGM17.2, SHBGM18, SHBGM18.2, SHBGM19, SHBGM19.2, SHBGM20, SHBGM20.2, SHBGM21, SHBGM21.2, rank = TRUE, verbose = FALSE)
+```
+### Performance models.
+
+```{r}
+kable(table1, caption = "Performance models comparision") %>%
+  kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
+  kable_styling(latex_options = "HOLD_position")
+
+plot(compare_performance(SHBGM17, SHBGM17.2, SHBGM18, SHBGM18.2, SHBGM19, SHBGM19.2, SHBGM20, SHBGM20.2, SHBGM21, SHBGM21.2, rank = TRUE, verbose = FALSE))
+```
+### Result for top 4 models: SHBGM18,SHBGM18.2, SHBGM17.2, SHBGM17
+
+```{r results='asis'}
+stargazer(SHBGM18,SHBGM18.2, SHBGM17.2, SHBGM17,type = "html", title="Results")
+```
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
+check_model(SHBGM18.2)
+```
+# K-folds cross validation predictions for dependent variable: SHBG.
+
+## SHBGM18: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
+NSIM<-2999
+
+TEST<- drop_na(SWANVISIT10, c("SHBG10","T10", "FSH10" , "E2AVE10", "TSH10" , "AGE10" , "DHAS10", "SKELMM10" , "PBFBIA10" , "STATUS10" , "EXERCIS10"))
+
+folds<-c()
+fold_cv<-c() 
+table2<-data.frame(matrix(nrow = NSIM, ncol = 2)) 
+colnames(table2) = c("MEAN","SD")
+for (i in 1:NSIM) {
+  folds[[i]] <- createFolds(TEST$SHBG10, k=5) 
+  fold_cv[[i]] <- lapply(folds[[i]], function(x){
+    TEST_train <- TEST[-x, ]
+    TEST_test <- TEST[x, ]
+    TEST_model <- glm(SHBG10 ~ FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10 , data = TEST_test, 
+               Gamma(link = "log"))
+    pred_results <- TEST_model$fitted.values
+    pred_cor <- cor(TEST_test$SHBG10, pred_results)
+    return(pred_cor)
+  })
+  table2[i,1]<- mean(unlist(fold_cv[[i]]))
+  table2[i,2]<- sd(unlist(fold_cv[[i]]))
+}
+
+table2$CIlwr<- table2$MEAN + quantile(distributions3::StudentsT(df = 4), 0.05 / 2) * table2$SD / sqrt(4)
+table2$CIupr<- table2$MEAN + quantile(distributions3::StudentsT(df = 4), 1 - 0.05/ 2) * table2$SD / sqrt(4)
+
+table2 %>% 
+  ggplot(aes(x = 1:NSIM, y = MEAN)) + 
+  geom_ribbon(aes(ymin = CIlwr, ymax = CIupr), alpha = 0.3, fill = "red")+
+  geom_line(colour = "blue",alpha = 0.5) + 
+  theme_minimal()+
+  xlab("Simulation")+
+  ylab("Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%")
 
 ```
 
+# Generalized linear regression models (GLM) for dependent variable: SHBG
+
+## Independent variable: Hormones + SKELMM + AGE + STATUS + OTHERS.
+
+### Gamma models:
+
+-   **SKELMMM9**: SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM9.2**: SHBG10 = FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM10**: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM10.2** log(SHBG10) = FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+
+### Gaussian models:
+
+-   **SKELMMM11**: SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM11.2**: SHBG10 = FSH10 + E2AVE10 + TSH10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM12**: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM12.2** log(SHBG10) = FSH10 + E2AVE10  + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + EXERCIS10
+-   **SKELMMM13**: 1/SHBG10 = T10 + FSH10 + E2AVE10 + TSH10 + SKELMM10 + PBFBIA10 + STATUS10  + EXERCIS10
+-   **SKELMMM13.2**: 1/SHBG10 = FSH10 + E2AVE10 + AGE10 + DHAS + SKELMM10 + PBFBIA10 + STATUS10  + EXERCIS10
+
+```{r}
+#Dependent variable: SHBG#######################################################
+#GAMMA IDENTITY ################################################################
+SKELMMM9 <- glm(SKELMM10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10  + EXERCIS10, data = SWANVISIT10, 
+               Gamma(link = "identity"))
+
+SKELMMM9.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10 + TSH10  + DHAS10 + SHBG10 + PBFBIA10 + STATUS10  + EXERCIS10, data = SWANVISIT10, 
+               Gamma(link = "identity"))
+
+#GAMMA LOG #####################################################################
+SKELMMM10 <- glm(SKELMM10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               Gamma(link = "log"))
+
+SKELMMM10.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10 + TSH10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10 , data = SWANVISIT10, 
+               Gamma(link = "log"))
+
+#GAMMA INVERSE NO RUN ##########################################################
+# SHBGM3 <- glm(SKELMM10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10+ STATUS10 , data = SWANVISIT10,
+#               Gamma(link = "inverse"))
+# SHBGM3.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10 + TSH10 + DHAS10 + SKELMM10  + STATUS10 , data = SWANVISIT10,Gamma(link = "inverse"))
+
+#GAUSSIAN IDENTITY #############################################################
+SKELMMM11 <- glm(SKELMM10 ~  T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               gaussian(link = "identity"))
+
+SKELMMM11.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10 + TSH10  + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10, 
+               gaussian(link = "identity"))
+
+#GAUSSIAN LOG ##################################################################
+SKELMMM12 <- glm(SKELMM10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10  + EXERCIS10 , data = SWANVISIT10, 
+               gaussian(link = "log"))
+
+SKELMMM12.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10  + DHAS10 + SHBG10 + PBFBIA10 + STATUS10  + EXERCIS10 , data = SWANVISIT10, 
+               gaussian(link = "log"))
+
+#GAUSSIAN INVERSE  #############################################################
+SKELMMM13 <- glm(SKELMM10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10,
+              gaussian(link = "inverse"))
+SKELMMM13.2 <- glm(SKELMM10 ~ FSH10 + E2AVE10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = SWANVISIT10,
+              gaussian(link = "inverse"))
+
+table1<-compare_performance(SKELMMM9, SKELMMM9.2, SKELMMM10, SKELMMM10.2, SKELMMM11, SKELMMM11.2, SKELMMM12, SKELMMM12.2, SKELMMM13, SKELMMM13.2, rank = TRUE, verbose = FALSE)
+```
+### Performance models.
+
+```{r}
+kable(table1, caption = "Performance models comparision") %>%
+  kable_styling(full_width = T, font_size = 6) %>% collapse_rows()%>%
+  kable_styling(latex_options = "HOLD_position")
+
+plot(compare_performance(SKELMMM9, SKELMMM9.2, SKELMMM10, SKELMMM10.2, SKELMMM11, SKELMMM11.2, SKELMMM12, SKELMMM12.2, SKELMMM13, SKELMMM13.2, rank = TRUE, verbose = FALSE))
+```
+### Result for top 4 models: SKELMMM10,SKELMMM9, SKELMMM10.2, SKELMMM13
+
+```{r results='asis'}
+stargazer(SKELMMM10,SKELMMM9, SKELMMM10.2, SKELMMM13,type = "html", title="Results")
+```
+
+```{r}
+#| fig-width: 12
+#| fig-height: 12
+
+check_model(SKELMMM10)
+```
+# K-folds cross validation predictions for dependent variable: SHBG.
+
+## SHBGM18: log(SHBG10) = T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SKELMM10 + PBFBIA10 + STATUS10 + V_ACTI10 + EXERCIS10
+
+```{r}
+#| fig-width: 6
+#| fig-height: 10
+
+NSIM<-2999
+
+TEST<- drop_na(SWANVISIT10, c("SHBG10","T10", "FSH10" , "E2AVE10", "TSH10" , "AGE10" , "DHAS10", "SKELMM10" , "PBFBIA10" , "STATUS10" , "EXERCIS10"))
+
+folds<-c()
+fold_cv<-c() 
+table2<-data.frame(matrix(nrow = NSIM, ncol = 2)) 
+colnames(table2) = c("MEAN","SD")
+for (i in 1:NSIM) {
+  folds[[i]] <- createFolds(TEST$SKELMM10, k=5) 
+  fold_cv[[i]] <- lapply(folds[[i]], function(x){
+    TEST_train <- TEST[-x, ]
+    TEST_test <- TEST[x, ]
+    TEST_model <- glm(SKELMM10 ~ T10 + FSH10 + E2AVE10 + TSH10 + AGE10 + DHAS10 + SHBG10 + PBFBIA10 + STATUS10 + EXERCIS10, data = TEST_test, 
+               Gamma(link = "log"))
+    pred_results <- TEST_model$fitted.values
+    pred_cor <- cor(TEST_test$SKELMM10, pred_results)
+    return(pred_cor)
+  })
+  table2[i,1]<- mean(unlist(fold_cv[[i]]))
+  table2[i,2]<- sd(unlist(fold_cv[[i]]))
+}
+
+table2$CIlwr<- table2$MEAN + quantile(distributions3::StudentsT(df = 4), 0.05 / 2) * table2$SD / sqrt(4)
+table2$CIupr<- table2$MEAN + quantile(distributions3::StudentsT(df = 4), 1 - 0.05/ 2) * table2$SD / sqrt(4)
+
+table2 %>% 
+  ggplot(aes(x = 1:NSIM, y = MEAN)) + 
+  geom_ribbon(aes(ymin = CIlwr, ymax = CIupr), alpha = 0.3, fill = "red")+
+  geom_line(colour = "blue",alpha = 0.5) + 
+  theme_minimal()+
+  xlab("Simulation")+
+  ylab("Mean of k-folds CV, Correlation(Fitted Values-Actual Values). CI 95%")
+
+```
