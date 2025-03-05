@@ -1045,6 +1045,69 @@ ggbarplot(SWANVISIT10 %>% drop_na(STATUS10), x = "STATUS10", y = "SKELMM10",
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) # Ajustar con Bonferroni
 ```
 
+```{r}
+#| fig-height: 12
+#| fig-width: 12
+# Primero, realiza las comparaciones y guarda los resultados
+# Realiza las comparaciones y guarda los resultados
+comparaciones_resultados <- compare_means(
+  SHBG10 ~ STATUS10, data = SWANVISIT10 %>% drop_na(STATUS10),
+  comparisons = comparaciones,
+  method = "t.test",
+  p.adjust.method = "bonferroni"
+)
+
+# Filtra solo comparaciones significativas (p.adj < 0.05)
+comparaciones_significativas <- comparaciones_resultados %>% 
+  filter(p.format < 0.05) %>% 
+  select(group1, group2) %>% 
+  pmap(c) # Esto genera una lista de vectores de caracteres
+
+# Ahora genera la gráfica solo con comparaciones significativas
+ggbarplot(SWANVISIT10_mod %>% drop_na(STATUS), x = "STATUS", y = "SHBG",
+          add = "mean_se",
+          color = "STATUS", fill = "STATUS",
+          palette = "jco", alpha = 0.7) +
+stat_compare_means(comparisons = comparaciones_significativas,
+                     method = "t.test",
+                     p.adjust.method = "bonferroni") +
+  stat_compare_means(method = "anova", 
+                     label.y = max(SWANVISIT10_mod$SHBG, na.rm = TRUE) * 1.2, # ligeramente arriba del valor máximo
+                     label.x = 0.7, # posición izquierda
+                     hjust = 0) + # alineación izquierda
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+# Primero, realiza las comparaciones y guarda los resultados
+# Realiza las comparaciones y guarda los resultados
+comparaciones_resultados <- compare_means(
+  SKELMM10 ~ STATUS10, data = SWANVISIT10 %>% drop_na(STATUS10),
+  comparisons = comparaciones,
+  method = "t.test",
+  p.adjust.method = "bonferroni"
+)
+
+# Filtra solo comparaciones significativas (p.adj < 0.05)
+comparaciones_significativas <- comparaciones_resultados %>% 
+  filter(p.format < 0.05) %>% 
+  select(group1, group2) %>% 
+  pmap(c) # Esto genera una lista de vectores de caracteres
+
+# Ahora genera la gráfica solo con comparaciones significativas
+ggbarplot(SWANVISIT10_mod %>% drop_na(STATUS), x = "STATUS", y = "SKELMM",
+          add = "mean_se",
+          color = "STATUS", fill = "STATUS",
+          palette = "jco", alpha = 0.7) +
+stat_compare_means(comparisons = comparaciones_significativas,
+                     method = "t.test",
+                     p.adjust.method = "bonferroni") +
+  stat_compare_means(method = "anova", 
+                     label.y = max(SWANVISIT10_mod$SKELMM, na.rm = TRUE) * 1.2, # ligeramente arriba del valor máximo
+                     label.x = 0.7, # posición izquierda
+                     hjust = 0) + # alineación izquierda
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+
 # Generalized linear regression models (GLM) for dependent variable: SHBG
 
 ## Independent variable: Hormones + SKELMM + AGE + STATUS + OTHERS.
