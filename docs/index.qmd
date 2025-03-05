@@ -154,7 +154,7 @@ pairs.panels(SWANVISIT10[,1:13],
 SWANVISIT10_mod <- SWANVISIT10
 colnames(SWANVISIT10_mod) <- gsub("10$", "", colnames(SWANVISIT10_mod))
 
-all <- corr_coef(SWANVISIT10_mod[,1:13])
+all <- corr_coef(SWANVISIT10_mod[,1:13], method = "spearman")
 plot(all)
 
 png("correlation_plot.png", width = 4000, height =3000, res = 600) 
