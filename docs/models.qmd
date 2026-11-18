@@ -1,0 +1,382 @@
+---
+title: "Model definition"
+subtitle: "Mathematical definition of the primary model, the quantities reported, the initial model and the sensitivity models"
+metadata-files: [_report.yml]
+crossref:
+  eq-prefix: Eq
+---
+
+```{r}
+#| code-summary: "Code: setup, and checks that the statements of the text hold in the data"
+source("_common.R")
+t2  <- tab("table2_primary_model")
+ti  <- tab("tableS_submitted_model")
+sen <- tab("tableS_sensitivity")
+NL  <- rows(R$nonlinearity)
+k   <- nrow(t2) + 1                       # coefficients: intercept + one per row of Table 2
+p   <- nrow(t2) - 1                       # covariate terms other than SHBG
+is_ind <- grepl("^(race|status|activity_limit|exercise)", t2$term)
+stopifnot(S$n - k == PR$joint[[1]]$df_residual, k == PR$n_coefficients, sum(is_ind) == 12, p - sum(is_ind) == 8)
+```
+
+This page defines every model of the analysis. The same definitions are in Text A of S1 File (Eqs S1 to S29) and, in
+shorter form, in the *Statistical analysis* section of the manuscript (Eqs 1 to 6). The results are on the pages
+[Primary model](results.html), [Sensitivity analyses](sensitivity.html) and
+[Diagnostics and model choice](diagnostics.html).
+
+## Notation
+
+| Symbol | Meaning |
+|:--|:----------|
+| $i = 1, \dots, n$ | participant; $n =$ `r fmt(S$n, 0)` women with complete data |
+| $Y_i$ | skeletal muscle mass estimated by bioelectrical impedance, kg |
+| $S_i$ | serum SHBG, nmol/L |
+| $\mathbf{x}_i = (x_{i1}, \dots, x_{ip})^\top$ | covariates; $p =$ `r p` terms (eight continuous terms and twelve indicator variables) |
+| $\mu_i = \mathrm{E}(Y_i \mid S_i, \mathbf{x}_i)$ | mean skeletal muscle mass given SHBG and the covariates |
+| $\phi$ | dispersion parameter (squared coefficient of variation) |
+| $\beta_0, \beta_1, \boldsymbol{\gamma}$ | intercept, coefficient of $\log_2$ SHBG and coefficients of the covariates; $k = p + 2 =$ `r k` coefficients |
+
+## Primary model
+
+### Random component
+
+Given SHBG and the covariates, the observations are independent and follow a gamma distribution with mean $\mu_i$
+and dispersion $\phi$:
+
+$$
+Y_i \mid S_i, \mathbf{x}_i \;\sim\; \mathrm{Gamma}(\mu_i, \phi), \qquad
+f(y; \mu_i, \phi) = \frac{1}{\Gamma(1/\phi)} \left(\frac{1}{\phi\,\mu_i}\right)^{1/\phi} y^{\,1/\phi - 1}
+\exp\!\left(-\frac{y}{\phi\,\mu_i}\right), \quad y > 0 .
+$$ {#eq-gamma}
+
+Under this parameterization (shape $1/\phi$, scale $\phi\mu_i$),
+
+$$
+\mathrm{E}(Y_i) = \mu_i, \qquad \mathrm{Var}(Y_i) = \phi\,\mu_i^{2}, \qquad
+\mathrm{CV}(Y_i) = \sqrt{\phi} ,
+$$ {#eq-moments}
+
+so the standard deviation is proportional to the mean and the coefficient of variation is constant. The estimate was
+$\hat\phi =$ `r fmt(PR$dispersion, 4)`, a coefficient of variation of `r fmt(100 * sqrt(PR$dispersion), 1)`%.
+
+### Systematic component and link function
+
+The mean depends on SHBG and the covariates through a linear predictor $\eta_i$ and the log link. SHBG enters as its
+base 2 logarithm:
+
+$$
+\log(\mu_i) = \eta_i = \beta_0 + \beta_1 \log_2(S_i) + \sum_{j=1}^{p} \gamma_j x_{ij}
+\quad\Longleftrightarrow\quad
+\mu_i = \exp\!\left(\beta_0 + \mathbf{x}_i^\top \boldsymbol{\gamma}\right) S_i^{\,\beta_1 / \log 2} .
+$$ {#eq-linpred}
+
+The terms of the linear predictor, with the unit in which each association is reported, are:
+
+```{r}
+kt(data.frame(Term = term_label(t2$term, t2$label),
+              Type = ifelse(is_ind, "indicator variable", ifelse(grepl("^log2", t2$term), "continuous, base 2 logarithm", "continuous, linear")),
+              check.names = FALSE))
+```
+
+Reference categories: White for race/ethnicity, natural post-menopause for menopausal status, not limited for the
+limitation of vigorous activities, and no for exercise.
+
+### Why these covariates
+
+- **Height.** It determines absolute muscle mass and is a term of the impedance equation that estimates it.
+- **Waist circumference.** Central adiposity is related to SHBG (Spearman ρ = `r fmt(S$spearman_shbg_waist, 2)`) and to
+  absolute muscle mass (ρ = `r fmt(S$spearman_smm_waist, 2)`), so it can produce an association between the two. Waist
+  circumference is measured with a tape, independently of the impedance device.
+- **Race/ethnicity.** SHBG and body composition differ among the groups of SWAN.
+- **Age and menopausal status.** Both are related to hormone concentrations and to muscle mass.
+- **Testosterone, estradiol, FSH, DHEA-S and TSH.** Hormones bound or regulated together with SHBG, on the logarithmic
+  scale because their distributions are right-skewed.
+- **Limitation of vigorous activities and exercise.** The two indicators of physical function and activity in the
+  public-use file.
+
+Percent body fat is not a covariate because it comes from the same impedance measurement as the outcome; see
+[Initial model and reasons for its revision](#initial-model-and-reasons-for-its-revision).
+
+### Why a gamma model with log link
+
+- Skeletal muscle mass is strictly positive and right-skewed, and its spread increases with its level.
+- The log link makes the effects multiplicative, so each coefficient has a direct reading as a ratio of means (@eq-rm).
+- The mean is modelled on its original scale. No back-transformation of the outcome is needed, unlike a linear
+  regression of $\log Y_i$, whose coefficients refer to the geometric mean.
+
+Whether this choice is adequate, and what happens under other distributions, is examined in
+[Diagnostics and model choice](diagnostics.html).
+
+## Estimation
+
+The log-likelihood of the model is
+
+$$
+\ell(\beta_0, \beta_1, \boldsymbol{\gamma}, \phi) = \sum_{i=1}^{n}
+\left[ -\log\Gamma\!\left(\tfrac{1}{\phi}\right) - \tfrac{1}{\phi}\log(\phi\,\mu_i)
++ \left(\tfrac{1}{\phi} - 1\right)\log y_i - \frac{y_i}{\phi\,\mu_i} \right],
+$$ {#eq-loglik}
+
+and the maximum likelihood estimates of the coefficients solve the score equations
+
+$$
+\frac{1}{\phi}\sum_{i=1}^{n} \frac{y_i - \mu_i}{\mu_i}\,\tilde{x}_{ij} = 0, \qquad j = 0, 1, \dots, p + 1,
+$$ {#eq-score}
+
+where $\tilde{\mathbf{x}}_i = (1, \log_2 S_i, \mathbf{x}_i^\top)^\top$ is the row of the design matrix $\mathbf{X}$. The
+solution does not depend on $\phi$. It is found by iteratively reweighted least squares (function `glm` of R); with
+the gamma distribution and the log link the working weights equal 1. The dispersion is estimated from the Pearson
+statistic, and the covariance matrix of the coefficients follows from it:
+
+$$
+\hat\phi = \frac{1}{n - k}\sum_{i=1}^{n} \left(\frac{y_i - \hat\mu_i}{\hat\mu_i}\right)^{2}, \qquad
+\widehat{\mathrm{Var}}(\hat{\boldsymbol\beta}) = \mathbf{V} = \hat\phi\,(\mathbf{X}^\top \mathbf{X})^{-1} .
+$$ {#eq-dispersion}
+
+## Quantities reported
+
+### Ratio of means and percent difference
+
+For two women with the same covariate values, one of whom has twice the SHBG concentration of the other, the ratio of
+mean skeletal muscle mass is
+
+$$
+\mathrm{RM} = \frac{\mu(2S, \mathbf{x})}{\mu(S, \mathbf{x})} = \exp(\beta_1),
+\qquad \Delta_{\%} = 100\,[\exp(\beta_1) - 1] ,
+$$ {#eq-rm}
+
+which does not depend on $\mathbf{x}$ or on the starting concentration $S$. A ratio of 0.99 is a 1% lower mean. The
+five hormone covariates are read in the same way. For a covariate on its original scale the ratio for a difference of
+$c$ units is $\exp(c\,\gamma_j)$, with $c$ equal to its reporting unit; for an indicator variable $c = 1$ and the ratio
+compares the category with the reference.
+
+### Confidence interval and test
+
+The 95% confidence interval is a Wald interval on the log scale, based on the $t$ distribution with the residual
+degrees of freedom ($n - k =$ `r fmt(S$n - k, 0)`), which is the reference distribution of the P values that R reports
+when the dispersion is estimated:
+
+$$
+\exp\!\left\{ \hat\beta_1 \pm t_{0.975;\,n-k}\; \mathrm{SE}(\hat\beta_1) \right\},
+\qquad t = \frac{\hat\beta_1}{\mathrm{SE}(\hat\beta_1)} \sim t_{n-k} \ \text{ under } H_0\!: \beta_1 = 0 .
+$$ {#eq-ci}
+
+Covariates with more than one indicator variable (race/ethnicity, menopausal status, activity limitation) are tested
+jointly with an $F$ test that compares the deviance $D$ of the models with and without the $q$ indicators:
+
+$$
+F = \frac{(D_{0} - D_{1})/q}{\hat\phi} \;\sim\; F_{q,\;n-k} .
+$$ {#eq-ftest}
+
+### Adjusted means and absolute difference
+
+To express the association in kilograms, every participant is assigned the same SHBG concentration $s$ and the
+predictions are averaged over the observed covariates (marginal standardization):
+
+$$
+\bar\mu(s) = \frac{1}{n}\sum_{i=1}^{n} \exp\!\left(\hat\beta_0 + \hat\beta_1 \log_2 s + \mathbf{x}_i^\top \hat{\boldsymbol\gamma}\right).
+$$ {#eq-std}
+
+Its variance is obtained with the delta method. With $\tilde{\mathbf{x}}_i(s) = (1, \log_2 s, \mathbf{x}_i^\top)^\top$,
+
+$$
+\mathbf{g}(s) = \frac{\partial \bar\mu(s)}{\partial \boldsymbol\beta}
+= \frac{1}{n}\sum_{i=1}^{n} \hat\mu_i(s)\,\tilde{\mathbf{x}}_i(s), \qquad
+\widehat{\mathrm{Var}}\{\bar\mu(s)\} = \mathbf{g}(s)^\top \mathbf{V}\,\mathbf{g}(s),
+$$ {#eq-delta}
+
+and the interval is $\bar\mu(s) \pm t_{0.975;\,n-k}\,[\mathbf{g}(s)^\top \mathbf{V}\,\mathbf{g}(s)]^{1/2}$. The average
+difference in skeletal muscle mass for a doubling of SHBG is
+
+$$
+\Delta_{\mathrm{kg}} = \frac{1}{n}\sum_{i=1}^{n}\left[\hat\mu_i(2 S_i) - \hat\mu_i(S_i)\right]
+= \left[\exp(\hat\beta_1) - 1\right] \frac{1}{n}\sum_{i=1}^{n}\hat\mu_i ,
+$$ {#eq-ame}
+
+that is, the percent difference applied to the mean fitted value. Here $\Delta_{\mathrm{kg}} =$
+`r fmt(PR$ame_kg_per_doubling, 3)` kg.
+
+## Initial model and reasons for its revision
+
+The model that was specified first, before the role of body size was examined, had SHBG and the hormones on their
+original scale and percent body fat from impedance as the only measure of body composition:
+
+$$
+\log(\mu_i) = \beta_0 + \beta_1 S_i + \sum_{j=1}^{16} \gamma_j x_{ij},
+$$ {#eq-initial}
+
+with testosterone, estradiol, FSH, DHEA-S, TSH, age and percent body fat as linear terms and indicator variables for
+menopausal status, activity limitation and exercise (`r nrow(ti) + 1` coefficients). In this model
+$\exp(10\,\beta_1)$ is the ratio of means per 10 nmol/L of SHBG.
+
+| Element | Initial model | Primary model | Reason for the change |
+|:--|:--|:--|:----------|
+| Scale of SHBG | linear, nmol/L | $\log_2$ | With the covariates of the initial model a linear term did not describe the association (`r ptext(NL$p_nonlinearity[2])` against a spline) and the logarithm had a lower AIC (`r fmt(NL$aic_log2[2], 0)` vs `r fmt(NL$aic_linear[2], 0)`) |
+| Scale of the hormones | linear | $\log_2$ | Right-skewed distributions; one testosterone value of `r fmt(SUB$max_testosterone_ng_dl, 0)` ng/dL had a leverage of `r fmt(SUB$max_leverage, 2)` and a Cook's distance of `r fmt(SUB$max_cook, 1)` |
+| Height | absent | linear | Determines absolute muscle mass; term of the impedance equation |
+| Waist circumference | absent | linear | Central adiposity, related to SHBG and to muscle mass, measured independently of impedance |
+| Percent body fat | linear | absent | Same impedance measurement as the outcome: the fat-free mass implied by weight and percent body fat has a correlation of `r fmt(S$pearson_smm_ffm, 2)` with skeletal muscle mass |
+| Race/ethnicity | absent | three indicators | SHBG and body composition differ among groups |
+
+: {tbl-colwidths="[16,14,14,56]"}
+
+The primary model has a lower AIC (`r fmt(PR$aic, 0)` vs `r fmt(SUB$aic, 0)`) and explains
+`r fmt(100 * PR$deviance_explained, 1)`% of the deviance, against `r fmt(100 * SUB$deviance_explained, 1)`%.
+
+::: {.callout-important appearance="simple"}
+The primary model was defined after the results of the initial model were known. It is not a prespecified analysis.
+Both models are reported in full, and percent body fat and fat mass are examined in the sensitivity analyses.
+:::
+
+## Sensitivity models
+
+Each sensitivity analysis keeps @eq-gamma and @eq-linpred and changes one element. All models use the same
+`r fmt(S$n, 0)` women unless a restriction of the sample is the point of the analysis, and all report the ratio of
+means per doubling of SHBG.
+
+```{r}
+kt(data.frame(ID = sen$id, Group = sub("^[A-G]\\. ", "", sen$group), Specification = ufix(sen$specification),
+              n = fmt(sen$n, 0), check.names = FALSE), align = "llll")
+```
+
+### A. Sequential adjustment
+
+Nested versions of the linear predictor: $\log_2$ SHBG alone (A1), with age (A2), with age, race/ethnicity and height
+(A3), with waist circumference added (A4), and the primary model (A5).
+
+### B. One covariate removed
+
+Each covariate of the primary model is taken out of @eq-linpred in turn (all the indicator variables of a categorical
+covariate together). The five hormone covariates are removed as a block (B6). This shows which covariates the
+estimate for SHBG depends on.
+
+### C. Body size measured in other ways
+
+| Model | Change with respect to the primary model |
+|:--|:----------|
+| C1 | body mass index replaces height and waist circumference |
+| C2 | weight replaces waist circumference |
+| C3 | fat mass ($\text{weight} \times \text{percent body fat} / 100$) replaces waist circumference |
+| C4 | percent body fat is added |
+| C5 | body mass index is added |
+| C6 | fat mass is added |
+| C7 | the covariates are those of the initial model (@eq-initial), with $\log_2$ SHBG as the exposure |
+
+### D. Scaling of the outcome
+
+The outcome $Y_i$ is replaced by the skeletal muscle mass index (D1, without height as a covariate) or by muscle mass
+relative to body weight (D2, with all the covariates of the primary model), with $H_i$ the height in metres and $W_i$
+the weight in kilograms:
+
+$$
+Y_i^{\mathrm{SMI}} = \frac{Y_i}{H_i^{2}} \quad (\text{kg/m}^2), \qquad
+Y_i^{\%} = 100\,\frac{Y_i}{W_i} \quad (\%) .
+$$ {#eq-scaling}
+
+### E. Model specification
+
+- **E1, robust standard errors.** Same coefficients as the primary model; $\mathbf{V}$ is replaced by the HC3 sandwich
+  estimator, which does not rely on the variance function of @eq-moments:
+  $$
+  \mathbf{V}_{\mathrm{HC3}} = (\mathbf{X}^\top\mathbf{X})^{-1}\,\mathbf{X}^\top
+  \mathrm{diag}\!\left\{\frac{r_i^{2}}{(1 - h_i)^{2}}\right\}\mathbf{X}\,(\mathbf{X}^\top\mathbf{X})^{-1},
+  \qquad r_i = \frac{y_i - \hat\mu_i}{\hat\mu_i},
+  $$
+  where $h_i$ is the leverage of observation $i$.
+- **E2, Gaussian model with log link.** $Y_i \sim \mathrm{N}(\mu_i, \sigma^2)$ with $\log(\mu_i) = \eta_i$: same mean
+  model, constant variance.
+- **E3, linear regression of log muscle mass.** $\log Y_i = \eta_i + \varepsilon_i$ with
+  $\varepsilon_i \sim \mathrm{N}(0, \sigma^2)$. Here $\exp(\beta_1)$ is a ratio of geometric means.
+- **E4, untransformed hormone covariates.** Testosterone, FSH, estradiol, TSH and DHEA-S enter on their original
+  scale; SHBG stays on the logarithmic scale.
+
+### F. Sample restrictions
+
+The primary model is refitted after excluding the observations with a Cook's distance above $4/n$ (F1), users of
+exogenous sex hormones (F2), women without a natural menopausal stage (F3), all women who were not in natural
+post-menopause (F4), and the participant with the extreme testosterone value (F5).
+
+## Functional form of SHBG
+
+Departure from linearity on the logarithmic scale is examined by replacing $\beta_1 \log_2(S_i)$ with a natural cubic
+spline of $\log_2(S_i)$ with three degrees of freedom:
+
+$$
+\log(\mu_i) = \beta_0 + \sum_{m=1}^{3} \beta_m N_m(\log_2 S_i) + \sum_{j=1}^{p} \gamma_j x_{ij},
+$$ {#eq-spline}
+
+where $N_m$ are the basis functions of a natural cubic spline with interior knots at the tertiles of $\log_2$ SHBG and
+boundary knots at its extremes; the function is linear beyond the boundary knots. The spline is compared with the
+single term by the $F$ test of @eq-ftest, with $q = 2$ and the dispersion and residual degrees of freedom of the
+spline model ($n - k - 2$). SHBG is also entered as an untransformed linear term, $\beta_1 S_i$, and the three forms
+are compared by AIC. The same comparison is made for the initial model, in which the linear term $\beta_1 S_i$ of
+@eq-initial is tested against a spline of $S_i$.
+
+## Other distributions
+
+The primary model is compared with models that keep the linear predictor of @eq-linpred and change the distribution
+or the link function. They differ in how the variance depends on the mean:
+
+| Model | Variance function | $\exp(\beta_1)$ with log link |
+|:--|:--|:--|
+| Gaussian | $\mathrm{Var}(Y_i) = \sigma^2$ | ratio of means |
+| Gamma (primary) | $\mathrm{Var}(Y_i) = \phi\,\mu_i^{2}$ | ratio of means |
+| Inverse Gaussian | $\mathrm{Var}(Y_i) = \phi\,\mu_i^{3}$ | ratio of means |
+| Log-normal | $\mathrm{Var}(Y_i) \propto \mu_i^{2}$ | ratio of geometric means |
+
+Models are compared with the Akaike information criterion, $\mathrm{AIC} = -2\,\hat\ell + 2\,(k + 1)$, always on the
+scale of skeletal muscle mass. For the log-normal model this requires the Jacobian of the transformation:
+$\mathrm{AIC}_{Y} = \mathrm{AIC}_{\log Y} + 2\sum_i \log y_i$.
+
+The variance function is also examined directly with a modified Park test. The squared residuals of the primary model
+are regressed on the logarithm of the fitted mean with a gamma log-link model,
+
+$$
+\mathrm{E}\!\left[(Y_i - \hat\mu_i)^{2}\right] = \exp\!\left(\lambda_0 + \lambda \log\hat\mu_i\right),
+$$ {#eq-park}
+
+and $\lambda$ estimates the power of the variance function: 0 for a Gaussian model, 2 for a gamma model and 3 for an
+inverse Gaussian model.
+
+## Complementary model
+
+The roles of the two variables are reversed, with SHBG as the dependent variable:
+
+$$
+S_i \mid Y_i, \mathbf{x}_i \sim \mathrm{Gamma}(\nu_i, \psi), \qquad
+\log(\nu_i) = \alpha_0 + \alpha_1 Y_i + \sum_{j=1}^{p} \theta_j x_{ij},
+$$ {#eq-reverse}
+
+so $\exp(\alpha_1)$ is the ratio of mean SHBG per additional kilogram of skeletal muscle mass. The covariates are
+those of the primary model; the model is also fitted with the covariates of the initial model. The design is
+cross-sectional and neither model identifies a direction of effect.
+
+## Diagnostics
+
+| Quantity | Definition |
+|:--|:----------|
+| Leverage | $h_i$, diagonal of $\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ |
+| Standardized deviance residual | $r_i^{D} = \mathrm{sign}(y_i - \hat\mu_i)\,\sqrt{d_i} \,/ \sqrt{\hat\phi}$, with $d_i = 2\left[\dfrac{y_i - \hat\mu_i}{\hat\mu_i} - \log\dfrac{y_i}{\hat\mu_i}\right]$ |
+| Quantile residual | $r_i^{Q} = \Phi^{-1}\{F(y_i; \hat\mu_i, \hat\phi)\}$, with $F$ the gamma distribution function; standard normal if the model holds |
+| Cook's distance | $D_i = \dfrac{r_i^{2}\,h_i}{k\,\hat\phi\,(1 - h_i)^{2}}$, with $r_i$ the Pearson residual of E1 |
+| Collinearity | generalized variance inflation factor, $\mathrm{GVIF}^{1/\mathrm{df}}$, comparable to an ordinary variance inflation factor |
+| Link test | $\hat\eta_i^{2}$ is added to the linear predictor; its coefficient should be zero if the linear predictor is well specified |
+
+: {tbl-colwidths="[28,72]"}
+
+## Code behind this page
+
+The code of each table is folded above it (*Code*), and the *Code* menu at the top of the page shows or hides all of
+it. The models defined on this page are written in `analysis/R/functions.R` and fitted by the scripts shown at the end
+of the pages [Primary model](results.html#code-behind-this-page),
+[Sensitivity analyses](sensitivity.html#code-behind-this-page) and
+[Diagnostics and model choice](diagnostics.html#code-behind-this-page). `analysis/R/10_check_formulas.R` computes the
+equations of this page by hand and stops if any differs from what R returns
+([results of the check](reproducibility.html#check-of-the-formulas)). The scripts are shown as they are in
+[`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis) and are not run here.
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/config.R", "analysis/R/functions.R", "analysis/R/10_check_formulas.R")
+```

@@ -1,0 +1,7 @@
+"quantity","value"
+"lambda (power of the variance function)",2.38525614745544
+"lower 95% limit",1.08043014947957
+"upper 95% limit",3.6900821454313
+"P value, lambda = 2 (gamma)",0.562799183402826
+"P value, lambda = 0 (Gaussian)",0.000339845523511504
+"P value, lambda = 3 (inverse Gaussian)",0.355798997670363

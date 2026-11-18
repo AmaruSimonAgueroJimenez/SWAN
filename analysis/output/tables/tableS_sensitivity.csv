@@ -1,0 +1,32 @@
+"id","group","specification","note","n","ratio","lcl","ucl","pct_difference","p"
+"A1","A. Sequential adjustment","Unadjusted","",1693,0.957181436425054,0.949547766734058,0.96487647523827,-4.28185635749463,5.50467229179462e-26
+"A2","A. Sequential adjustment","Adjusted for age","",1693,0.956390502466052,0.948802921402077,0.964038761448595,-4.36094975339483,3.85796568914174e-27
+"A3","A. Sequential adjustment","Adjusted for age, race/ethnicity and height","",1693,0.957590042527795,0.951112656409813,0.964111541749138,-4.24099574722054,1.81189870075859e-34
+"A4","A. Sequential adjustment","Adjusted for age, race/ethnicity, height and waist circumference","",1693,0.99518372417922,0.988779063855306,1.00162986967951,-0.481627582078026,0.142658914107311
+"A5","A. Sequential adjustment","Primary model","further adjusted for menopausal status, hormones, activity limitation and exercise",1693,0.995954410696869,0.989474607966673,1.00247664791006,-0.404558930313148,0.223355121559017
+"B1","B. One covariate removed from the primary model","Primary model without waist circumference","",1693,0.965001359325234,0.958613125579154,0.971432164500084,-3.49986406747664,4.15252351117192e-25
+"B2","B. One covariate removed from the primary model","Primary model without height","",1693,0.999177759922322,0.991813499182091,1.00659670063645,-0.0822240077677838,0.827380788134097
+"B3","B. One covariate removed from the primary model","Primary model without race/ethnicity","",1693,0.994658636725023,0.988235298734661,1.00112372516793,-0.534136327497658,0.105125158006704
+"B4","B. One covariate removed from the primary model","Primary model without age","",1693,0.996132692131793,0.989654973547727,1.00265281017746,-0.386730786820744,0.244222369048461
+"B5","B. One covariate removed from the primary model","Primary model without menopausal status","",1693,0.995558322866529,0.989098977572446,1.00205985113984,-0.44416771334711,0.179990160859592
+"B6","B. One covariate removed from the primary model","Primary model without the five hormone covariates","",1693,0.99586310120156,0.989522739990829,1.00224408823993,-0.413689879844015,0.20318663777196
+"B7","B. One covariate removed from the primary model","Primary model without activity limitation","",1693,0.995637810767407,0.989162954010015,1.00215505060219,-0.436218923259291,0.188949271280884
+"B8","B. One covariate removed from the primary model","Primary model without exercise","",1693,0.995498160639389,0.988972862955291,1.00206651259875,-0.45018393606111,0.178585130545698
+"C1","C. Other measures of body size","Body mass index in place of height and waist circumference","",1693,0.994612854688716,0.987522724472327,1.00175389000859,-0.538714531128381,0.138807748107051
+"C2","C. Other measures of body size","Weight in place of waist circumference","",1693,0.996945515578711,0.991130053502989,1.00279509991622,-0.305448442128897,0.305223907507218
+"C3","C. Other measures of body size","Fat mass in place of waist circumference","fat mass from the same impedance measurement as the outcome",1693,0.975100743818934,0.968421116864286,0.981826443102527,-2.4899256181066,9.40640412062042e-13
+"C4","C. Other measures of body size","Primary model + percent body fat","",1693,0.997642790209828,0.992984728849999,1.00232270239475,-0.235720979017207,0.322771564607997
+"C5","C. Other measures of body size","Primary model + body mass index","",1693,0.994725140233106,0.988804226874983,1.00068150774286,-0.527485976689446,0.0824722555388044
+"C6","C. Other measures of body size","Primary model + fat mass","",1693,0.998298747494367,0.992073970754778,1.00456258164963,-0.170125250563335,0.593464153765678
+"C7","C. Other measures of body size","Covariates of the initial model","hormones untransformed and percent body fat; no race/ethnicity, height or waist circumference",1693,0.964393832174926,0.956463678091064,0.972389736109237,-3.56061678250738,1.62504215478092e-17
+"D1","D. Alternative scaling of muscle mass","Skeletal muscle mass index (kg/m2)","height is not a covariate",1693,0.995010426710659,0.988460747671861,1.001603504838,-0.498957328934102,0.137587832382125
+"D2","D. Alternative scaling of muscle mass","Skeletal muscle mass as % of body weight","",1693,1.0005856065864,0.994011878407409,1.00720280899654,0.0585606586398058,0.861727684120494
+"E1","E. Model specification","Primary model, robust (HC3) standard errors","",1693,0.995954410696869,0.989305349054247,1.00264816028217,-0.404558930313148,0.23539721890468
+"E2","E. Model specification","Gaussian family, log link","",1693,0.997067946557558,0.990667745389517,1.00350949617485,-0.293205344244241,0.371265513180868
+"E3","E. Model specification","Linear regression of log skeletal muscle mass","ratio of geometric means",1693,0.99578837707763,0.989546252852498,1.00206987704162,-0.421162292236954,0.188209762594127
+"E4","E. Model specification","Hormone covariates untransformed","",1693,0.996573444574182,0.990091855940038,1.00309746461605,-0.342655542581782,0.302335328824191
+"F1","F. Sample restrictions","Excluding observations with Cook's distance > 4/n","",1624,0.994176842189147,0.988638661090866,0.999746047210612,-0.582315781085285,0.0404657668419507
+"F2","F. Sample restrictions","Excluding users of exogenous sex hormones","",1546,0.996658694797823,0.989820154612182,1.00354448157837,-0.334130520217701,0.340483720664097
+"F3","F. Sample restrictions","Natural menopausal stages only","",1525,0.995110292058879,0.988387524930556,1.00187878578403,-0.488970794112087,0.156283368980454
+"F4","F. Sample restrictions","Natural post-menopause only","",1295,0.993652772110421,0.986502207295289,1.00085516709562,-0.634722788957887,0.083938346064865
+"F5","F. Sample restrictions","Excluding the participant with the extreme testosterone value","",1692,0.995949252607312,0.98946739609351,1.00247357081721,-0.405074739268774,0.222913868322011

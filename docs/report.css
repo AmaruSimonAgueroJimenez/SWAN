@@ -1,0 +1,38 @@
+/* Analysis report: SHBG and skeletal muscle mass in SWAN */
+:root { --swan-ink: #1f2933; --swan-accent: #1f5f8b; --swan-accent-dark: #17425f; --swan-soft: #eef4f8; --swan-line: #d5dee6; --swan-warm: #b5532a; }
+body { color: var(--swan-ink); }
+.swan-nav { background: var(--swan-accent-dark); box-shadow: 0 1px 4px rgba(0,0,0,.18); }
+.swan-nav .navbar-brand { font-weight: 600; letter-spacing: .01em; }
+.swan-nav .nav-link { color: rgba(255,255,255,.86); white-space: nowrap; padding-left: .8rem !important; padding-right: .8rem !important; }
+.swan-nav .container-fluid { max-width: 1400px; }
+.swan-nav .nav-link:hover, .swan-nav .nav-link.active { color: #fff; }
+.swan-nav .nav-link.active { border-bottom: 2px solid #9cc7e4; }
+.swan-nav .dropdown-item.active { background: var(--swan-accent); }
+#title-block-header { margin-top: 1.6rem; }
+#title-block-header .title { font-weight: 650; line-height: 1.2; }
+#title-block-header .subtitle { color: #52606d; font-size: 1.15rem; }
+h2 { border-bottom: 1px solid var(--swan-line); padding-bottom: .3rem; margin-top: 2.2rem; }
+h3 { margin-top: 1.6rem; color: var(--swan-accent-dark); }
+a { color: var(--swan-accent); }
+table { font-size: .92rem; }
+table thead th { border-bottom: 2px solid var(--swan-ink) !important; white-space: normal; }
+.table-wrap, .cell-output-display { overflow-x: auto; }
+.kpi { background: var(--swan-soft); border: 1px solid var(--swan-line); border-radius: 8px; padding: .9rem 1rem; height: 100%; }
+.kpi .kpi-value { font-size: 1.7rem; font-weight: 650; color: var(--swan-accent-dark); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.kpi .kpi-label { font-size: .9rem; color: #3e4c59; margin-top: .25rem; }
+.kpi .kpi-note { font-size: .8rem; color: #616e7c; }
+.kpi.warm .kpi-value { color: var(--swan-warm); }
+.navcard { border: 1px solid var(--swan-line); border-radius: 8px; padding: .9rem 1rem; height: 100%; }
+.navcard p { margin-bottom: .2rem; }
+.navcard a { font-weight: 600; text-decoration: none; }
+.eqnote { font-size: .92rem; color: #3e4c59; }
+figure figcaption, .figure-caption { font-size: .9rem; color: #3e4c59; text-align: left; }
+.swan-footer { border-top: 1px solid var(--swan-line); margin: 3rem auto 0; padding: 1.2rem 1.5rem 2rem; font-size: .82rem; color: #52606d; max-width: 1100px; }
+.swan-footer div + div { margin-top: .4rem; }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+.grid { margin-bottom: 1.2rem; --bs-gap: 1rem; }
+.kpi p, .navcard p { margin-bottom: .15rem; }
+math { font-size: 1.1em; }
+math[display="block"] { margin: .9rem 0; overflow-x: auto; overflow-y: hidden; }
+/* folded code: a label that wraps stays aligned with its first line */
+details.code-fold > summary { padding-left: 1.2em; text-indent: -1.2em; }

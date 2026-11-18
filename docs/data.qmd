@@ -1,0 +1,162 @@
+---
+title: "Data and sample"
+subtitle: "Source, variables, analytic sample and characteristics of the participants"
+metadata-files: [_report.yml]
+---
+
+```{r}
+#| code-summary: "Code: setup"
+source("_common.R")
+F <- R$flow
+```
+
+## Source
+
+The Study of Women's Health Across the Nation (SWAN) is a multi-site, community-based cohort that enrolled 3,302 women
+aged 42 to 52 years at seven sites in the United States. This analysis uses the public-use file of the 10th follow-up
+visit (2006 to 2008), distributed by the Inter-university Consortium for Political and Social Research as study 32961,
+version 2 ([doi: 10.3886/ICPSR32961.v2](https://doi.org/10.3886/ICPSR32961.v2)). The file contains
+`r fmt(F$visit10, 0)` women examined at six sites; no data were collected at the New Jersey site at this visit.
+
+The design is cross-sectional: every variable was measured at the same visit.
+
+## Variables
+
+| Role | Variable | SWAN name | Unit in the file | SI unit |
+|:--|:--|:--|:--|:--|
+| Outcome | Skeletal muscle mass (bioelectrical impedance, Janssen equation) | `SKELMM10` | kg | kg |
+| Exposure | Sex hormone-binding globulin (SHBG) | `SHBG10` | nmol/L | nmol/L |
+| Covariate | Age | `AGE10` | years | |
+| Covariate | Height | `HEIGHT10` | cm | |
+| Covariate | Waist circumference | `WAIST10` | cm | |
+| Covariate | Race/ethnicity (Black, Chinese, Japanese, White) | `RACE` | | |
+| Covariate | Menopausal status (seven categories) | `STATUS10` | | |
+| Covariate | Testosterone | `T10` | ng/dL | × `r R$si$testosterone$factor` = nmol/L |
+| Covariate | Estradiol (mean of duplicate assays) | `E2AVE10` | pg/mL | × `r R$si$estradiol$factor` = pmol/L |
+| Covariate | Follicle-stimulating hormone (FSH) | `FSH10` | mIU/mL | numerically equal to IU/L |
+| Covariate | Dehydroepiandrosterone sulfate (DHEA-S) | `DHAS10` | µg/dL | × `r R$si$dheas$factor` = µmol/L |
+| Covariate | Thyroid-stimulating hormone (TSH) | `TSH10` | µIU/mL | numerically equal to mIU/L |
+| Covariate | Health limits vigorous activities (three categories) | `V_ACTI10` | | |
+| Covariate | Used exercise for health in the past 12 months | `EXERCIS10` | | |
+| Sensitivity | Percent body fat (bioelectrical impedance) | `PBFBIA10` | % | |
+| Sensitivity | Weight | `WEIGHT10` | kg | |
+
+"Covariate" marks the covariates of the primary model. SHBG and the five hormone covariates enter the primary model
+as base 2 logarithms, so their estimates refer to a doubling of the concentration and do not depend on the unit.
+Percent body fat and weight are used in the sensitivity analyses and in the initial model
+(see [Model definition](models.html#initial-model-and-reasons-for-its-revision)).
+
+Derived variables: body mass index, weight (kg) divided by height squared (m²); fat mass, weight × percent body fat / 100;
+skeletal muscle mass index, skeletal muscle mass divided by height squared; relative muscle mass,
+100 × skeletal muscle mass / weight. Skeletal muscle mass was computed by SWAN with the equation of Janssen et al. for
+women, 0.401 × (height²/resistance) − 0.071 × age + 5.102 (height in cm, resistance in ohms, age in years). The pipeline
+reproduces the SWAN variable from its components (correlation above 0.9999).
+
+## Analytic sample
+
+```{r}
+fl <- tab("flow_participants")
+kt(data.frame(Step = fl$step, n = fmt(fl$n, 0), `% of visit 10` = fmt(100 * fl$n / fl$n[1], 1), check.names = FALSE), align = "lrr")
+```
+
+`r fmt(F$analytic, 0)` women (`r fmt(100 * F$analytic / F$visit10, 1)`% of the visit participants) had SHBG, skeletal
+muscle mass and all covariates of the primary model, and every model was fitted to them unless a restriction is stated.
+Missing values were not imputed.
+
+### Missing values by variable
+
+```{r}
+mv <- tab("tableS_missing_by_variable")
+lab <- c(smm = "Skeletal muscle mass", shbg = "SHBG", testosterone = "Testosterone", fsh = "FSH", estradiol = "Estradiol",
+         tsh = "TSH", dheas = "DHEA-S", age = "Age", pbf = "Percent body fat", status = "Menopausal status",
+         height_cm = "Height", waist_cm = "Waist circumference", race = "Race/ethnicity",
+         activity_limit = "Limitation of vigorous activities", exercise = "Exercise for health")
+stopifnot(all(mv$variable %in% names(lab)))
+kt(data.frame(Variable = unname(lab[mv$variable]),
+              `Missing among all visit 10 participants` = fmt(mv$missing_visit10, 0),
+              `Missing among women with SHBG and skeletal muscle mass` = fmt(mv$missing_with_shbg_and_smm, 0),
+              check.names = FALSE), align = "lrr")
+```
+
+Most exclusions were due to a missing SHBG or impedance measurement. Among the `r fmt(F$both, 0)` women with both,
+`r F$both - F$analytic` lacked one covariate.
+
+## Muscle mass, SHBG and waist circumference in the unadjusted data
+
+![(A) Unadjusted mean skeletal muscle mass, with 95% confidence intervals, by tertile of SHBG, in all women (dashed line) and within each tertile of waist circumference (solid lines). (B) Percentage of the women in each tertile of SHBG who were in the lowest (bottom), middle and highest (top) tertile of waist circumference. Fig 1 of the manuscript.](`r fig("Fig1")`){width=90%}
+
+```{r}
+sw <- tab("tableS_smm_by_shbg_and_waist_tertile")
+wl <- c(`All women` = "All women", Lowest = paste0("Lowest tertile of waist (", S$waist_range$Lowest, " cm)"),
+        Middle = paste0("Middle tertile of waist (", S$waist_range$Middle, " cm)"), Highest = paste0("Highest tertile of waist (", S$waist_range$Highest, " cm)"))
+stopifnot(all(sw$waist_tertile %in% names(wl)))
+kt(data.frame(Group = unname(wl[sw$waist_tertile]), `Tertile of SHBG` = sw$shbg_tertile, n = fmt(sw$n, 0),
+              `% of the tertile of SHBG` = ifelse(sw$waist_tertile == "All women", "", fmt(sw$pct_of_shbg_tertile, 1)),
+              `Skeletal muscle mass, kg, mean (SD)` = paste0(fmt(sw$mean_smm, 2), " (", fmt(sw$sd_smm, 2), ")"),
+              `95% CI of the mean` = ci(sw$lcl, sw$ucl), check.names = FALSE), align = "llrrrr")
+```
+
+Across tertiles of SHBG, skeletal muscle mass falls in the whole sample but hardly changes within tertiles of waist
+circumference. The largest difference within a stratum is in the highest tertile of waist circumference, which is also
+the widest. These are unadjusted means; the models are on the pages [Primary model](results.html) and
+[Sensitivity analyses](sensitivity.html).
+
+## Characteristics of the participants
+
+::: {.panel-tabset}
+
+## By tertile of SHBG
+
+```{r}
+t1 <- tab("table1_characteristics")
+names(t1) <- c("Characteristic", "All women", "Lowest tertile", "Middle tertile", "Highest tertile")
+t1$Characteristic <- ufix(gsub("^  ", " ", t1$Characteristic))
+kt(t1, align = "lrrrr")
+```
+
+Values are mean (SD), median (IQR) or n (%). Body size differs markedly across tertiles of SHBG: women in the lowest
+tertile had a waist circumference `r fmt(S$tertile_waist$Lowest - S$tertile_waist$Highest, 0)` cm larger than women in the
+highest tertile, weighed `r fmt(S$tertile_weight$Lowest - S$tertile_weight$Highest, 0)` kg more and
+had `r fmt(S$tertile_smm$Lowest - S$tertile_smm$Highest, 1)` kg more skeletal muscle, but a smaller share of their body
+weight was muscle (`r fmt(S$tertile_smm_pct$Lowest, 1)`% vs `r fmt(S$tertile_smm_pct$Highest, 1)`%).
+
+## Included and not included
+
+```{r}
+ie <- tab("tableS_included_excluded")
+names(ie) <- c("Characteristic", "Analyzed", "Not analyzed")
+ie$Characteristic <- ufix(gsub("^  ", " ", ie$Characteristic))
+kt(ie, align = "lrr")
+```
+
+The number of women with data for each characteristic is given in brackets.
+
+## Correlations
+
+```{r}
+sp <- tab("tableS_spearman")
+sp[-1] <- lapply(sp[-1], function(x) fmt(x, 2))
+kt(sp, align = paste0("l", strrep("r", ncol(sp) - 1)))
+```
+
+Spearman correlation coefficients in the analytic sample (n = `r fmt(S$n, 0)`). SHBG correlates with skeletal muscle
+mass (ρ = `r fmt(S$spearman_shbg_smm, 2)`) and more strongly with waist circumference
+(ρ = `r fmt(S$spearman_shbg_waist, 2)`) and body mass index (ρ = `r fmt(S$spearman_shbg_bmi, 2)`), but not with height
+(ρ = `r fmt(S$spearman_shbg_height, 2)`). Skeletal muscle mass correlates with waist circumference
+(ρ = `r fmt(S$spearman_smm_waist, 2)`), body mass index (ρ = `r fmt(S$spearman_smm_bmi, 2)`) and height
+(ρ = `r fmt(S$spearman_smm_height, 2)`), but only weakly with percent body fat (ρ = `r fmt(S$spearman_smm_pbf, 2)`).
+
+:::
+
+## Code behind this page
+
+The code of each table is folded above it (*Code*), and the *Code* menu at the top of the page shows or hides all of
+it. That code only reads the output of the pipeline. The numbers are computed by the scripts below, shown as they are
+in [`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis) and not run here. All the scripts
+of the pipeline are on the page [Reproducibility](reproducibility.html#code-of-the-pipeline).
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/config.R", "analysis/R/functions.R", "analysis/R/01_prepare_data.R", "analysis/R/02_descriptives.R", "analysis/R/07_figures.R")
+```

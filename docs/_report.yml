@@ -1,0 +1,29 @@
+# Shared settings of every page of the analysis report (read through `metadata-files`).
+lang: en
+format:
+  html:
+    theme: default
+    css: report.css
+    include-before-body: _navbar.html
+    include-after-body: _footer.html
+    toc: true
+    toc-location: right
+    toc-title: "On this page"
+    toc-depth: 3
+    grid:
+      body-width: 960px
+      margin-width: 230px
+    embed-resources: true
+    html-math-method: mathml      # native MathML: no external script, the pages work offline
+    smooth-scroll: true
+    anchor-sections: true
+    fig-align: center
+    df-print: kable
+    code-fold: true               # the code of every table is on the page, folded; "Code" opens it
+    code-summary: "Code"
+    code-tools: true              # menu at the top of each page: show or hide all the code, view the source of the page
+    code-overflow: scroll
+execute:
+  echo: true
+  warning: false
+  message: false

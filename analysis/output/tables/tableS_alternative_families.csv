@@ -1,0 +1,4 @@
+"model","variance_function","estimand","n","aic","pct_difference","pct_lcl","pct_ucl","change_smm_kg_per_doubling","delta_aic_vs_primary"
+"Gamma, log link (primary)","proportional to mean^2","ratio of arithmetic means",1693,7309.81299614986,-0.404558930313148,-1.05253920333266,0.247664791005509,-0.0822204843541343,0
+"Inverse Gaussian, log link","proportional to mean^3","ratio of arithmetic means",1693,7271.24995387554,-0.44565679644667,-1.09869698431001,0.21169538199679,-0.0905732339924477,-38.5630422743234
+"Log-normal (linear regression of log muscle mass)","proportional to mean^2 (constant on the log scale)","ratio of geometric means",1693,7271.83040448083,-0.421162292236954,-1.04537471475016,0.206987704162231,-0.085587851910176,-37.9825916690315

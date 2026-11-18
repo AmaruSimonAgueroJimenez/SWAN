@@ -1,0 +1,1389 @@
+{
+  "flow": {
+    "visit10": 2245,
+    "shbg": 1896,
+    "smm": 1822,
+    "both": 1730,
+    "analytic": 1693,
+    "analytic_body": 1693
+  },
+  "sample": {
+    "n": 1693,
+    "age_mean": 56.01831069,
+    "age_sd": 2.68240396,
+    "age_min": 51,
+    "age_max": 63,
+    "shbg_median": 40.29999924,
+    "shbg_q1": 25.89999962,
+    "shbg_q3": 60,
+    "shbg_mean": 45.70702893,
+    "shbg_sd": 27.38381121,
+    "smm_mean": 20.32340005,
+    "smm_sd": 3.22170477,
+    "bmi_mean": 28.82804747,
+    "bmi_sd": 6.99802706,
+    "pct_post": 76.49143532,
+    "n_hormone_users_excluded": 147,
+    "n_cook_excluded": 69,
+    "spearman_shbg_waist": -0.4585258,
+    "spearman_smm_waist": 0.58887124,
+    "spearman_shbg_height": -0.01485125,
+    "spearman_smm_height": 0.51701185,
+    "tertile_waist": {
+      "Lowest": 97.81531697,
+      "Middle": 89.26985836,
+      "Highest": 81.50926925
+    },
+    "tertile_range": {
+      "Lowest": "3.5 to 31.0",
+      "Middle": "31.1 to 52.1",
+      "Highest": "52.3 to 220.8"
+    },
+    "tertile_bmi": {
+      "Lowest": 31.97965376,
+      "Middle": 28.85574643,
+      "Highest": 25.60926923
+    },
+    "tertile_smm": {
+      "Lowest": 21.34914212,
+      "Middle": 20.2291832,
+      "Highest": 19.37957974
+    },
+    "tertile_smm_pct": {
+      "Lowest": 26.12704326,
+      "Middle": 27.42548389,
+      "Highest": 29.66183606
+    },
+    "tertile_weight": {
+      "Lowest": 84.09700704,
+      "Middle": 76.06117021,
+      "Highest": 67.37308378
+    },
+    "spearman_shbg_smm": -0.27420946,
+    "spearman_shbg_bmi": -0.42410416,
+    "spearman_smm_bmi": 0.59771002,
+    "spearman_smm_pbf": 0.17846326,
+    "spearman_shbg_pbf": -0.31073606,
+    "pearson_smm_ffm": 0.95152289,
+    "strata": [
+      {
+        "waist_tertile": "All women",
+        "shbg_tertile": "Lowest",
+        "n": 568,
+        "mean_smm": 21.34914212,
+        "sd_smm": 3.22439559,
+        "lcl": 21.08340619,
+        "ucl": 21.61487805,
+        "pct_of_shbg_tertile": 100
+      },
+      {
+        "waist_tertile": "All women",
+        "shbg_tertile": "Middle",
+        "n": 564,
+        "mean_smm": 20.2291832,
+        "sd_smm": 3.18520123,
+        "lcl": 19.96574421,
+        "ucl": 20.49262219,
+        "pct_of_shbg_tertile": 100
+      },
+      {
+        "waist_tertile": "All women",
+        "shbg_tertile": "Highest",
+        "n": 561,
+        "mean_smm": 19.37957974,
+        "sd_smm": 2.94372402,
+        "lcl": 19.13545972,
+        "ucl": 19.62369977,
+        "pct_of_shbg_tertile": 100
+      },
+      {
+        "waist_tertile": "Lowest",
+        "shbg_tertile": "Lowest",
+        "n": 68,
+        "mean_smm": 18.38608758,
+        "sd_smm": 2.41434916,
+        "lcl": 17.80169058,
+        "ucl": 18.97048457,
+        "pct_of_shbg_tertile": 11.97183099
+      },
+      {
+        "waist_tertile": "Lowest",
+        "shbg_tertile": "Middle",
+        "n": 177,
+        "mean_smm": 18.45063958,
+        "sd_smm": 2.3549567,
+        "lcl": 18.10130547,
+        "ucl": 18.79997368,
+        "pct_of_shbg_tertile": 31.38297872
+      },
+      {
+        "waist_tertile": "Lowest",
+        "shbg_tertile": "Highest",
+        "n": 322,
+        "mean_smm": 18.37178439,
+        "sd_smm": 2.38110094,
+        "lcl": 18.11072549,
+        "ucl": 18.63284329,
+        "pct_of_shbg_tertile": 57.39750446
+      },
+      {
+        "waist_tertile": "Middle",
+        "shbg_tertile": "Lowest",
+        "n": 202,
+        "mean_smm": 20.19448733,
+        "sd_smm": 2.33182573,
+        "lcl": 19.87097465,
+        "ucl": 20.51800001,
+        "pct_of_shbg_tertile": 35.56338028
+      },
+      {
+        "waist_tertile": "Middle",
+        "shbg_tertile": "Middle",
+        "n": 209,
+        "mean_smm": 20.02807703,
+        "sd_smm": 3.0268995,
+        "lcl": 19.61530786,
+        "ucl": 20.44084619,
+        "pct_of_shbg_tertile": 37.05673759
+      },
+      {
+        "waist_tertile": "Middle",
+        "shbg_tertile": "Highest",
+        "n": 160,
+        "mean_smm": 20.00840954,
+        "sd_smm": 2.56462257,
+        "lcl": 19.60797666,
+        "ucl": 20.40884242,
+        "pct_of_shbg_tertile": 28.52049911
+      },
+      {
+        "waist_tertile": "Highest",
+        "shbg_tertile": "Lowest",
+        "n": 298,
+        "mean_smm": 22.80796084,
+        "sd_smm": 3.13068642,
+        "lcl": 22.45105563,
+        "ucl": 23.16486606,
+        "pct_of_shbg_tertile": 52.46478873
+      },
+      {
+        "waist_tertile": "Highest",
+        "shbg_tertile": "Middle",
+        "n": 178,
+        "mean_smm": 22.23386528,
+        "sd_smm": 2.95584745,
+        "lcl": 21.79664557,
+        "ucl": 22.67108498,
+        "pct_of_shbg_tertile": 31.56028369
+      },
+      {
+        "waist_tertile": "Highest",
+        "shbg_tertile": "Highest",
+        "n": 79,
+        "mean_smm": 22.21372324,
+        "sd_smm": 3.51202519,
+        "lcl": 21.42707246,
+        "ucl": 23.00037402,
+        "pct_of_shbg_tertile": 14.08199643
+      }
+    ],
+    "waist_cuts": [80.2, 95],
+    "waist_range": {
+      "Lowest": "59.0 to 80.2",
+      "Middle": "80.3 to 95.0",
+      "Highest": "95.2 to 151.8"
+    },
+    "spearman_smm_fat_mass": 0.47042633,
+    "spearman_shbg_fat_mass": -0.3687174
+  },
+  "status": {
+    "global": [
+      {
+        "variable": "Skeletal muscle mass",
+        "anova_classic_p": 4.67360684e-07,
+        "welch_F": 5.8169249,
+        "welch_df1": 6,
+        "welch_df2": 47.91445825,
+        "anova_welch_p": 0.00013005,
+        "kruskal_chi2": 40.73188702,
+        "kruskal_df": 6,
+        "kruskal_p": 3.2699987e-07
+      },
+      {
+        "variable": "SHBG",
+        "anova_classic_p": 0.02807127,
+        "welch_F": 1.86326015,
+        "welch_df1": 6,
+        "welch_df2": 47.86556877,
+        "anova_welch_p": 0.10678549,
+        "kruskal_chi2": 13.92237869,
+        "kruskal_df": 6,
+        "kruskal_p": 0.03051536
+      }
+    ],
+    "smm_post_vs_late": {
+      "variable": "smm",
+      "group1": "Late perimenopause",
+      "group2": "Natural post-menopause",
+      "n1": 103,
+      "n2": 1295,
+      "mean1": 21.37198773,
+      "mean2": 20.0697066,
+      "diff": 1.30228113,
+      "p_unadjusted": 0.00030953,
+      "p_bonferroni": 0.00650008,
+      "p_holm": 0.00650008
+    },
+    "smm_post_vs_bso": {
+      "variable": "smm",
+      "group1": "Natural post-menopause",
+      "group2": "Surgical menopause (BSO)",
+      "n1": 1295,
+      "n2": 97,
+      "mean1": 20.0697066,
+      "mean2": 21.38485745,
+      "diff": -1.31515084,
+      "p_unadjusted": 0.00107549,
+      "p_bonferroni": 0.02258529,
+      "p_holm": 0.0215098
+    },
+    "smm_post_vs_early": {
+      "variable": "smm",
+      "group1": "Early perimenopause",
+      "group2": "Natural post-menopause",
+      "n1": 122,
+      "n2": 1295,
+      "mean1": 20.89405151,
+      "mean2": 20.0697066,
+      "diff": 0.82434491,
+      "p_unadjusted": 0.00328777,
+      "p_bonferroni": 0.0690432,
+      "p_holm": 0.06246766
+    },
+    "n_smm_pairs_bonferroni": 2,
+    "n_shbg_pairs_bonferroni": 0
+  },
+  "primary": {
+    "terms": {
+      "activity_limitLimited a little": {
+        "label": "  Limited a little",
+        "ratio": 0.99394452,
+        "lcl": 0.9821658,
+        "ucl": 1.00586449,
+        "pct_difference": -0.60554828,
+        "p": 0.31778085
+      },
+      "activity_limitLimited a lot": {
+        "label": "  Limited a lot",
+        "ratio": 0.98442397,
+        "lcl": 0.97034069,
+        "ucl": 0.99871165,
+        "pct_difference": -1.55760312,
+        "p": 0.03275379
+      },
+      "age": {
+        "label": "Age, per 1 year",
+        "ratio": 0.99846645,
+        "lcl": 0.99639116,
+        "ucl": 1.00054605,
+        "pct_difference": -0.15335544,
+        "p": 0.14814935
+      },
+      "exerciseYes": {
+        "label": "  Yes",
+        "ratio": 1.03246407,
+        "lcl": 1.01994372,
+        "ucl": 1.04513813,
+        "pct_difference": 3.24640746,
+        "p": 3.13583251e-07
+      },
+      "height_cm": {
+        "label": "Height, per 5 cm",
+        "ratio": 1.04913231,
+        "lcl": 1.04461083,
+        "ucl": 1.05367335,
+        "pct_difference": 4.91323051,
+        "p": 8.58478624e-93
+      },
+      "log2(dheas)": {
+        "label": "DHEA-S, per doubling",
+        "ratio": 0.99846359,
+        "lcl": 0.99213154,
+        "ucl": 1.00483606,
+        "pct_difference": -0.15364077,
+        "p": 0.63553725
+      },
+      "log2(estradiol)": {
+        "label": "Estradiol, per doubling",
+        "ratio": 0.99777493,
+        "lcl": 0.99103792,
+        "ucl": 1.00455774,
+        "pct_difference": -0.22250697,
+        "p": 0.51908768
+      },
+      "log2(fsh)": {
+        "label": "FSH, per doubling",
+        "ratio": 0.98201214,
+        "lcl": 0.97461756,
+        "ucl": 0.98946281,
+        "pct_difference": -1.79878648,
+        "p": 2.67916516e-06
+      },
+      "log2(shbg)": {
+        "label": "SHBG, per doubling",
+        "ratio": 0.99595441,
+        "lcl": 0.98947461,
+        "ucl": 1.00247665,
+        "pct_difference": -0.40455893,
+        "p": 0.22335512
+      },
+      "log2(testosterone)": {
+        "label": "Testosterone, per doubling",
+        "ratio": 1.01128334,
+        "lcl": 1.00365343,
+        "ucl": 1.01897125,
+        "pct_difference": 1.1283337,
+        "p": 0.00371092
+      },
+      "log2(tsh)": {
+        "label": "TSH, per doubling",
+        "ratio": 1.00140697,
+        "lcl": 0.99604269,
+        "ucl": 1.00680014,
+        "pct_difference": 0.14069697,
+        "p": 0.60772313
+      },
+      "raceBlack": {
+        "label": "  Black",
+        "ratio": 0.97984976,
+        "lcl": 0.9672973,
+        "ucl": 0.99256512,
+        "pct_difference": -2.01502353,
+        "p": 0.00198987
+      },
+      "raceChinese": {
+        "label": "  Chinese",
+        "ratio": 1.01084385,
+        "lcl": 0.99203369,
+        "ucl": 1.03001066,
+        "pct_difference": 1.08438472,
+        "p": 0.26023621
+      },
+      "raceJapanese": {
+        "label": "  Japanese",
+        "ratio": 0.99434169,
+        "lcl": 0.97616262,
+        "ucl": 1.01285931,
+        "pct_difference": -0.56583058,
+        "p": 0.54647334
+      },
+      "statusEarly perimenopause": {
+        "label": "  Early perimenopause",
+        "ratio": 1.01659575,
+        "lcl": 0.9926707,
+        "ucl": 1.04109742,
+        "pct_difference": 1.65957463,
+        "p": 0.17542628
+      },
+      "statusLate perimenopause": {
+        "label": "  Late perimenopause",
+        "ratio": 1.01960974,
+        "lcl": 0.99704177,
+        "ucl": 1.04268854,
+        "pct_difference": 1.96097407,
+        "p": 0.08898445
+      },
+      "statusPremenopause": {
+        "label": "  Premenopause",
+        "ratio": 0.96397134,
+        "lcl": 0.87633702,
+        "ucl": 1.06036915,
+        "pct_difference": -3.60286622,
+        "p": 0.45028727
+      },
+      "statusSurgical menopause (BSO)": {
+        "label": "  Surgical menopause (BSO)",
+        "ratio": 1.01510197,
+        "lcl": 0.99269518,
+        "ucl": 1.03801452,
+        "pct_difference": 1.51019685,
+        "p": 0.18797466
+      },
+      "statusUndetermined (hormone therapy)": {
+        "label": "  Undetermined (hormone therapy)",
+        "ratio": 1.00937364,
+        "lcl": 0.96777401,
+        "ucl": 1.05276143,
+        "pct_difference": 0.93736436,
+        "p": 0.66375672
+      },
+      "statusUndetermined (hysterectomy)": {
+        "label": "  Undetermined (hysterectomy)",
+        "ratio": 1.0168721,
+        "lcl": 0.98463232,
+        "ucl": 1.05016752,
+        "pct_difference": 1.68721047,
+        "p": 0.30855484
+      },
+      "waist_cm": {
+        "label": "Waist circumference, per 5 cm",
+        "ratio": 1.02544533,
+        "lcl": 1.02308881,
+        "ucl": 1.02780728,
+        "pct_difference": 2.54453284,
+        "p": 3.80630872e-90
+      }
+    },
+    "joint": [
+      {
+        "term": "log2(shbg)",
+        "F": 1.48862836,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.22260156
+      },
+      {
+        "term": "log2(testosterone)",
+        "F": 8.49922691,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.00360031
+      },
+      {
+        "term": "log2(fsh)",
+        "F": 22.8120667,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 1.94260484e-06
+      },
+      {
+        "term": "log2(estradiol)",
+        "F": 0.41672034,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.51866671
+      },
+      {
+        "term": "log2(tsh)",
+        "F": 0.26332953,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.60790973
+      },
+      {
+        "term": "log2(dheas)",
+        "F": 0.22400728,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.63606521
+      },
+      {
+        "term": "age",
+        "F": 2.07292151,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.15012138
+      },
+      {
+        "term": "height_cm",
+        "F": 475.59700693,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 5.44502776e-93
+      },
+      {
+        "term": "waist_cm",
+        "F": 465.1665412,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 3.21486994e-91
+      },
+      {
+        "term": "race",
+        "F": 4.17237774,
+        "df": 3,
+        "df_residual": 1671,
+        "p": 0.0059233
+      },
+      {
+        "term": "status",
+        "F": 1.11561368,
+        "df": 6,
+        "df_residual": 1671,
+        "p": 0.35063698
+      },
+      {
+        "term": "activity_limit",
+        "F": 2.27574265,
+        "df": 2,
+        "df_residual": 1671,
+        "p": 0.10303888
+      },
+      {
+        "term": "exercise",
+        "F": 26.25809541,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 3.33355153e-07
+      },
+      {
+        "term": "Residuals",
+        "df": 1671,
+        "df_residual": 1671
+      }
+    ],
+    "ame_kg_per_doubling": -0.08222048,
+    "predicted": [
+      {
+        "shbg_percentile": 10,
+        "shbg_nmol_L": 16.70000076,
+        "adjusted_mean_smm_kg": 20.41895391,
+        "lcl": 20.23281786,
+        "ucl": 20.60508997,
+        "difference_vs_p25_kg": 0.05233751
+      },
+      {
+        "shbg_percentile": 25,
+        "shbg_nmol_L": 25.89999962,
+        "adjusted_mean_smm_kg": 20.3666164,
+        "lcl": 20.24147953,
+        "ucl": 20.49175327,
+        "difference_vs_p25_kg": 0
+      },
+      {
+        "shbg_percentile": 50,
+        "shbg_nmol_L": 40.29999924,
+        "adjusted_mean_smm_kg": 20.31402404,
+        "lcl": 20.20924572,
+        "ucl": 20.41880236,
+        "difference_vs_p25_kg": -0.05259237
+      },
+      {
+        "shbg_percentile": 75,
+        "shbg_nmol_L": 60,
+        "adjusted_mean_smm_kg": 20.26679572,
+        "lcl": 20.1290112,
+        "ucl": 20.40458024,
+        "difference_vs_p25_kg": -0.09982068
+      },
+      {
+        "shbg_percentile": 90,
+        "shbg_nmol_L": 79.19999695,
+        "adjusted_mean_smm_kg": 20.23391526,
+        "lcl": 20.05689699,
+        "ucl": 20.41093353,
+        "difference_vs_p25_kg": -0.13270115
+      }
+    ],
+    "dispersion": 0.01131436,
+    "aic": 7309.81299615,
+    "n_coefficients": 22,
+    "deviance_explained": 0.55828015,
+    "max_cook": 0.09293958,
+    "n_cook_gt_4n": 69,
+    "max_leverage": 0.21013372
+  },
+  "submitted": {
+    "terms": {
+      "activity_limitLimited a little": {
+        "label": "  Limited a little",
+        "ratio": 0.99731889,
+        "lcl": 0.98141704,
+        "ucl": 1.01347839,
+        "pct_difference": -0.26811133,
+        "p": 0.74324528
+      },
+      "activity_limitLimited a lot": {
+        "label": "  Limited a lot",
+        "ratio": 1.03163323,
+        "lcl": 1.01191761,
+        "ucl": 1.05173298,
+        "pct_difference": 3.16332331,
+        "p": 0.00157545
+      },
+      "age": {
+        "label": "Age, per 1 year",
+        "ratio": 0.99394377,
+        "lcl": 0.99113045,
+        "ucl": 0.99676508,
+        "pct_difference": -0.60562293,
+        "p": 0.00002767
+      },
+      "dheas": {
+        "label": "DHEA-S, per 50 ug/dL",
+        "ratio": 0.99302189,
+        "lcl": 0.98823506,
+        "ucl": 0.9978319,
+        "pct_difference": -0.69781114,
+        "p": 0.00453212
+      },
+      "estradiol": {
+        "label": "Estradiol, per 10 pg/mL",
+        "ratio": 0.99990724,
+        "lcl": 0.99792069,
+        "ucl": 1.00189774,
+        "pct_difference": -0.00927621,
+        "p": 0.92711269
+      },
+      "exerciseYes": {
+        "label": "  Yes",
+        "ratio": 1.01552964,
+        "lcl": 0.99883513,
+        "ucl": 1.03250319,
+        "pct_difference": 1.55296395,
+        "p": 0.06841129
+      },
+      "fsh": {
+        "label": "FSH, per 10 mIU/mL",
+        "ratio": 0.9927543,
+        "lcl": 0.99134351,
+        "ucl": 0.9941671,
+        "pct_difference": -0.72456982,
+        "p": 4.9618791e-23
+      },
+      "pbf": {
+        "label": "Body fat, per 5 percentage points",
+        "ratio": 0.99807189,
+        "lcl": 0.99363761,
+        "ucl": 1.00252596,
+        "pct_difference": -0.19281105,
+        "p": 0.39537449
+      },
+      "shbg": {
+        "label": "SHBG, per 10 nmol/L",
+        "ratio": 0.98936793,
+        "lcl": 0.98661165,
+        "ucl": 0.99213191,
+        "pct_difference": -1.06320671,
+        "p": 9.21780747e-14
+      },
+      "statusEarly perimenopause": {
+        "label": "  Early perimenopause",
+        "ratio": 0.98715818,
+        "lcl": 0.95688677,
+        "ucl": 1.01838723,
+        "pct_difference": -1.28418211,
+        "p": 0.41578591
+      },
+      "statusLate perimenopause": {
+        "label": "  Late perimenopause",
+        "ratio": 1.03813788,
+        "lcl": 1.00710949,
+        "ucl": 1.07012224,
+        "pct_difference": 3.81378813,
+        "p": 0.01565652
+      },
+      "statusPremenopause": {
+        "label": "  Premenopause",
+        "ratio": 0.86499242,
+        "lcl": 0.76064408,
+        "ucl": 0.98365572,
+        "pct_difference": -13.50075761,
+        "p": 0.02704528
+      },
+      "statusSurgical menopause (BSO)": {
+        "label": "  Surgical menopause (BSO)",
+        "ratio": 1.04749247,
+        "lcl": 1.01629321,
+        "ucl": 1.07964952,
+        "pct_difference": 4.74924738,
+        "p": 0.00265373
+      },
+      "statusUndetermined (hormone therapy)": {
+        "label": "  Undetermined (hormone therapy)",
+        "ratio": 1.01576395,
+        "lcl": 0.95940776,
+        "ucl": 1.07543053,
+        "pct_difference": 1.57639506,
+        "p": 0.59102516
+      },
+      "statusUndetermined (hysterectomy)": {
+        "label": "  Undetermined (hysterectomy)",
+        "ratio": 1.03167897,
+        "lcl": 0.98757162,
+        "ucl": 1.07775626,
+        "pct_difference": 3.1678973,
+        "p": 0.16170298
+      },
+      "testosterone": {
+        "label": "Testosterone, per 10 ng/dL",
+        "ratio": 1.00349553,
+        "lcl": 1.00186141,
+        "ucl": 1.00513232,
+        "pct_difference": 0.34955324,
+        "p": 0.00002816
+      },
+      "tsh": {
+        "label": "TSH, per 1 uIU/mL",
+        "ratio": 0.99934801,
+        "lcl": 0.99687409,
+        "ucl": 1.00182806,
+        "pct_difference": -0.06519923,
+        "p": 0.60584736
+      }
+    },
+    "aic": 8383.17051299,
+    "dispersion": 0.02097329,
+    "deviance_explained": 0.1646697,
+    "max_cook": 6.10741583,
+    "max_leverage": 0.77249892,
+    "max_testosterone_ng_dl": 1572.90002441,
+    "max_testosterone_nmol_l": 54.53244385
+  },
+  "sensitivity": {
+    "A1": {
+      "specification": "Unadjusted",
+      "n": 1693,
+      "ratio": 0.95718144,
+      "lcl": 0.94954777,
+      "ucl": 0.96487648,
+      "pct_difference": -4.28185636,
+      "p": 5.50467229e-26
+    },
+    "A2": {
+      "specification": "Adjusted for age",
+      "n": 1693,
+      "ratio": 0.9563905,
+      "lcl": 0.94880292,
+      "ucl": 0.96403876,
+      "pct_difference": -4.36094975,
+      "p": 3.85796569e-27
+    },
+    "A3": {
+      "specification": "Adjusted for age, race/ethnicity and height",
+      "n": 1693,
+      "ratio": 0.95759004,
+      "lcl": 0.95111266,
+      "ucl": 0.96411154,
+      "pct_difference": -4.24099575,
+      "p": 1.8118987e-34
+    },
+    "A4": {
+      "specification": "Adjusted for age, race/ethnicity, height and waist circumference",
+      "n": 1693,
+      "ratio": 0.99518372,
+      "lcl": 0.98877906,
+      "ucl": 1.00162987,
+      "pct_difference": -0.48162758,
+      "p": 0.14265891
+    },
+    "A5": {
+      "specification": "Primary model",
+      "n": 1693,
+      "ratio": 0.99595441,
+      "lcl": 0.98947461,
+      "ucl": 1.00247665,
+      "pct_difference": -0.40455893,
+      "p": 0.22335512
+    },
+    "B1": {
+      "specification": "Primary model without waist circumference",
+      "n": 1693,
+      "ratio": 0.96500136,
+      "lcl": 0.95861313,
+      "ucl": 0.97143216,
+      "pct_difference": -3.49986407,
+      "p": 4.15252351e-25
+    },
+    "B2": {
+      "specification": "Primary model without height",
+      "n": 1693,
+      "ratio": 0.99917776,
+      "lcl": 0.9918135,
+      "ucl": 1.0065967,
+      "pct_difference": -0.08222401,
+      "p": 0.82738079
+    },
+    "B3": {
+      "specification": "Primary model without race/ethnicity",
+      "n": 1693,
+      "ratio": 0.99465864,
+      "lcl": 0.9882353,
+      "ucl": 1.00112373,
+      "pct_difference": -0.53413633,
+      "p": 0.10512516
+    },
+    "B4": {
+      "specification": "Primary model without age",
+      "n": 1693,
+      "ratio": 0.99613269,
+      "lcl": 0.98965497,
+      "ucl": 1.00265281,
+      "pct_difference": -0.38673079,
+      "p": 0.24422237
+    },
+    "B5": {
+      "specification": "Primary model without menopausal status",
+      "n": 1693,
+      "ratio": 0.99555832,
+      "lcl": 0.98909898,
+      "ucl": 1.00205985,
+      "pct_difference": -0.44416771,
+      "p": 0.17999016
+    },
+    "B6": {
+      "specification": "Primary model without the five hormone covariates",
+      "n": 1693,
+      "ratio": 0.9958631,
+      "lcl": 0.98952274,
+      "ucl": 1.00224409,
+      "pct_difference": -0.41368988,
+      "p": 0.20318664
+    },
+    "B7": {
+      "specification": "Primary model without activity limitation",
+      "n": 1693,
+      "ratio": 0.99563781,
+      "lcl": 0.98916295,
+      "ucl": 1.00215505,
+      "pct_difference": -0.43621892,
+      "p": 0.18894927
+    },
+    "B8": {
+      "specification": "Primary model without exercise",
+      "n": 1693,
+      "ratio": 0.99549816,
+      "lcl": 0.98897286,
+      "ucl": 1.00206651,
+      "pct_difference": -0.45018394,
+      "p": 0.17858513
+    },
+    "C1": {
+      "specification": "Body mass index in place of height and waist circumference",
+      "n": 1693,
+      "ratio": 0.99461285,
+      "lcl": 0.98752272,
+      "ucl": 1.00175389,
+      "pct_difference": -0.53871453,
+      "p": 0.13880775
+    },
+    "C2": {
+      "specification": "Weight in place of waist circumference",
+      "n": 1693,
+      "ratio": 0.99694552,
+      "lcl": 0.99113005,
+      "ucl": 1.0027951,
+      "pct_difference": -0.30544844,
+      "p": 0.30522391
+    },
+    "C3": {
+      "specification": "Fat mass in place of waist circumference",
+      "n": 1693,
+      "ratio": 0.97510074,
+      "lcl": 0.96842112,
+      "ucl": 0.98182644,
+      "pct_difference": -2.48992562,
+      "p": 9.40640412e-13
+    },
+    "C4": {
+      "specification": "Primary model + percent body fat",
+      "n": 1693,
+      "ratio": 0.99764279,
+      "lcl": 0.99298473,
+      "ucl": 1.0023227,
+      "pct_difference": -0.23572098,
+      "p": 0.32277156
+    },
+    "C5": {
+      "specification": "Primary model + body mass index",
+      "n": 1693,
+      "ratio": 0.99472514,
+      "lcl": 0.98880423,
+      "ucl": 1.00068151,
+      "pct_difference": -0.52748598,
+      "p": 0.08247226
+    },
+    "C6": {
+      "specification": "Primary model + fat mass",
+      "n": 1693,
+      "ratio": 0.99829875,
+      "lcl": 0.99207397,
+      "ucl": 1.00456258,
+      "pct_difference": -0.17012525,
+      "p": 0.59346415
+    },
+    "C7": {
+      "specification": "Covariates of the initial model",
+      "n": 1693,
+      "ratio": 0.96439383,
+      "lcl": 0.95646368,
+      "ucl": 0.97238974,
+      "pct_difference": -3.56061678,
+      "p": 1.62504215e-17
+    },
+    "D1": {
+      "specification": "Skeletal muscle mass index (kg/m2)",
+      "n": 1693,
+      "ratio": 0.99501043,
+      "lcl": 0.98846075,
+      "ucl": 1.0016035,
+      "pct_difference": -0.49895733,
+      "p": 0.13758783
+    },
+    "D2": {
+      "specification": "Skeletal muscle mass as % of body weight",
+      "n": 1693,
+      "ratio": 1.00058561,
+      "lcl": 0.99401188,
+      "ucl": 1.00720281,
+      "pct_difference": 0.05856066,
+      "p": 0.86172768
+    },
+    "E1": {
+      "specification": "Primary model, robust (HC3) standard errors",
+      "n": 1693,
+      "ratio": 0.99595441,
+      "lcl": 0.98930535,
+      "ucl": 1.00264816,
+      "pct_difference": -0.40455893,
+      "p": 0.23539722
+    },
+    "E2": {
+      "specification": "Gaussian family, log link",
+      "n": 1693,
+      "ratio": 0.99706795,
+      "lcl": 0.99066775,
+      "ucl": 1.0035095,
+      "pct_difference": -0.29320534,
+      "p": 0.37126551
+    },
+    "E3": {
+      "specification": "Linear regression of log skeletal muscle mass",
+      "n": 1693,
+      "ratio": 0.99578838,
+      "lcl": 0.98954625,
+      "ucl": 1.00206988,
+      "pct_difference": -0.42116229,
+      "p": 0.18820976
+    },
+    "E4": {
+      "specification": "Hormone covariates untransformed",
+      "n": 1693,
+      "ratio": 0.99657344,
+      "lcl": 0.99009186,
+      "ucl": 1.00309746,
+      "pct_difference": -0.34265554,
+      "p": 0.30233533
+    },
+    "F1": {
+      "specification": "Excluding observations with Cook's distance > 4/n",
+      "n": 1624,
+      "ratio": 0.99417684,
+      "lcl": 0.98863866,
+      "ucl": 0.99974605,
+      "pct_difference": -0.58231578,
+      "p": 0.04046577
+    },
+    "F2": {
+      "specification": "Excluding users of exogenous sex hormones",
+      "n": 1546,
+      "ratio": 0.99665869,
+      "lcl": 0.98982015,
+      "ucl": 1.00354448,
+      "pct_difference": -0.33413052,
+      "p": 0.34048372
+    },
+    "F3": {
+      "specification": "Natural menopausal stages only",
+      "n": 1525,
+      "ratio": 0.99511029,
+      "lcl": 0.98838752,
+      "ucl": 1.00187879,
+      "pct_difference": -0.48897079,
+      "p": 0.15628337
+    },
+    "F4": {
+      "specification": "Natural post-menopause only",
+      "n": 1295,
+      "ratio": 0.99365277,
+      "lcl": 0.98650221,
+      "ucl": 1.00085517,
+      "pct_difference": -0.63472279,
+      "p": 0.08393835
+    },
+    "F5": {
+      "specification": "Excluding the participant with the extreme testosterone value",
+      "n": 1692,
+      "ratio": 0.99594925,
+      "lcl": 0.9894674,
+      "ucl": 1.00247357,
+      "pct_difference": -0.40507474,
+      "p": 0.22291387
+    }
+  },
+  "si": {
+    "testosterone": {
+      "factor": 0.03467,
+      "unit": "nmol/L",
+      "digits": 2
+    },
+    "estradiol": {
+      "factor": 3.671,
+      "unit": "pmol/L",
+      "digits": 1
+    },
+    "dheas": {
+      "factor": 0.02714,
+      "unit": "umol/L",
+      "digits": 2
+    }
+  },
+  "alternative_families": [
+    {
+      "model": "Gamma, log link (primary)",
+      "variance_function": "proportional to mean^2",
+      "estimand": "ratio of arithmetic means",
+      "n": 1693,
+      "aic": 7309.81299615,
+      "pct_difference": -0.40455893,
+      "pct_lcl": -1.0525392,
+      "pct_ucl": 0.24766479,
+      "change_smm_kg_per_doubling": -0.08222048,
+      "delta_aic_vs_primary": 0
+    },
+    {
+      "model": "Inverse Gaussian, log link",
+      "variance_function": "proportional to mean^3",
+      "estimand": "ratio of arithmetic means",
+      "n": 1693,
+      "aic": 7271.24995388,
+      "pct_difference": -0.4456568,
+      "pct_lcl": -1.09869698,
+      "pct_ucl": 0.21169538,
+      "change_smm_kg_per_doubling": -0.09057323,
+      "delta_aic_vs_primary": -38.56304227
+    },
+    {
+      "model": "Log-normal (linear regression of log muscle mass)",
+      "variance_function": "proportional to mean^2 (constant on the log scale)",
+      "estimand": "ratio of geometric means",
+      "n": 1693,
+      "aic": 7271.83040448,
+      "pct_difference": -0.42116229,
+      "pct_lcl": -1.04537471,
+      "pct_ucl": 0.2069877,
+      "change_smm_kg_per_doubling": -0.08558785,
+      "delta_aic_vs_primary": -37.98259167
+    }
+  ],
+  "variance_function": {
+    "lambda": 2.38525615,
+    "lcl": 1.08043015,
+    "ucl": 3.69008215,
+    "p_gamma": 0.56279918,
+    "p_gaussian": 0.00033985,
+    "p_inverse_gaussian": 0.355799
+  },
+  "nonlinearity": [
+    {
+      "model": "Primary model",
+      "term_tested": "log2(SHBG)",
+      "aic_log2": 7309.81299615,
+      "aic_linear": 7311.31518183,
+      "aic_spline_3df": 7308.99579558,
+      "F_nonlinearity": 2.2489301,
+      "df1": 2,
+      "df2": 1669,
+      "p_nonlinearity": 0.1058317,
+      "ratio_per_10": 0.99967733,
+      "lcl_per_10": 0.99750627,
+      "ucl_per_10": 1.00185312,
+      "p_per_10": 0.77097779
+    },
+    {
+      "model": "Covariates of the initial model",
+      "term_tested": "SHBG, linear",
+      "aic_log2": 8365.84904681,
+      "aic_linear": 8383.17051299,
+      "aic_spline_3df": 8363.72416564,
+      "F_nonlinearity": 11.20577318,
+      "df1": 2,
+      "df2": 1673,
+      "p_nonlinearity": 0.00001465,
+      "ratio_per_10": 0.98936793,
+      "lcl_per_10": 0.98661165,
+      "ucl_per_10": 0.99213191,
+      "p_per_10": 9.21780747e-14
+    }
+  ],
+  "model_comparison": [
+    {
+      "model": "Gamma, log link (primary)",
+      "aic": 7309.81299615,
+      "delta_aic": 0,
+      "rmse_kg": 2.17601579,
+      "change_smm_kg_per_doubling": -0.08222048
+    },
+    {
+      "model": "Gamma, identity link",
+      "aic": 7322.23104305,
+      "delta_aic": 12.4180469,
+      "rmse_kg": 2.18251043,
+      "change_smm_kg_per_doubling": -0.06747087
+    },
+    {
+      "model": "Gamma, inverse link",
+      "aic": 7323.8197169,
+      "delta_aic": 14.00672075,
+      "rmse_kg": 2.18762161,
+      "change_smm_kg_per_doubling": -0.09308213
+    },
+    {
+      "model": "Gaussian, log link",
+      "aic": 7481.6312622,
+      "delta_aic": 171.81826605,
+      "rmse_kg": 2.17505546,
+      "change_smm_kg_per_doubling": -0.05958984
+    },
+    {
+      "model": "Gaussian, identity link",
+      "aic": 7490.81882885,
+      "delta_aic": 181.0058327,
+      "rmse_kg": 2.18096526,
+      "change_smm_kg_per_doubling": -0.05132369
+    },
+    {
+      "model": "Gaussian, inverse link",
+      "aic": 7497.67148705,
+      "delta_aic": 187.8584909,
+      "rmse_kg": 2.18538361,
+      "change_smm_kg_per_doubling": -0.0651089
+    }
+  ],
+  "shbg_outcome": {
+    "primary": {
+      "activity_limitLimited a little": {
+        "ratio": 0.99232772,
+        "lcl": 0.93705167,
+        "ucl": 1.05086447,
+        "p": 0.7921464
+      },
+      "activity_limitLimited a lot": {
+        "ratio": 1.0298958,
+        "lcl": 0.96097039,
+        "ucl": 1.10376487,
+        "p": 0.40434212
+      },
+      "age": {
+        "ratio": 0.99380145,
+        "lcl": 0.98391169,
+        "ucl": 1.00379061,
+        "p": 0.22286415
+      },
+      "exerciseYes": {
+        "ratio": 0.97155533,
+        "lcl": 0.91580193,
+        "ucl": 1.03070294,
+        "p": 0.33833939
+      },
+      "height_cm": {
+        "ratio": 1.0216541,
+        "lcl": 0.99804934,
+        "ucl": 1.04581712,
+        "p": 0.07242886
+      },
+      "log2(dheas)": {
+        "ratio": 0.89393497,
+        "lcl": 0.86734605,
+        "ucl": 0.92133897,
+        "p": 5.00170317e-13
+      },
+      "log2(estradiol)": {
+        "ratio": 1.13804358,
+        "lcl": 1.10214607,
+        "ucl": 1.17511029,
+        "p": 4.52950184e-15
+      },
+      "log2(fsh)": {
+        "ratio": 1.02665377,
+        "lcl": 0.98979874,
+        "ucl": 1.06488109,
+        "p": 0.15835152
+      },
+      "log2(testosterone)": {
+        "ratio": 0.96512504,
+        "lcl": 0.93056729,
+        "ucl": 1.00096613,
+        "p": 0.05637635
+      },
+      "log2(tsh)": {
+        "ratio": 0.97526739,
+        "lcl": 0.95044903,
+        "ucl": 1.0007338,
+        "p": 0.05687747
+      },
+      "raceBlack": {
+        "ratio": 1.08960525,
+        "lcl": 1.02407872,
+        "ucl": 1.15932455,
+        "p": 0.00671944
+      },
+      "raceChinese": {
+        "ratio": 0.79769721,
+        "lcl": 0.72918416,
+        "ucl": 0.87264766,
+        "p": 8.74106781e-07
+      },
+      "raceJapanese": {
+        "ratio": 0.93313193,
+        "lcl": 0.85404003,
+        "ucl": 1.01954846,
+        "p": 0.12555058
+      },
+      "smm": {
+        "ratio": 0.99914437,
+        "lcl": 0.98804275,
+        "ucl": 1.01037072,
+        "p": 0.88057473
+      },
+      "statusEarly perimenopause": {
+        "ratio": 0.9386109,
+        "lcl": 0.83704908,
+        "ucl": 1.05249553,
+        "p": 0.27804057
+      },
+      "statusLate perimenopause": {
+        "ratio": 0.85703571,
+        "lcl": 0.76965547,
+        "ucl": 0.95433637,
+        "p": 0.00495224
+      },
+      "statusPremenopause": {
+        "ratio": 0.90742796,
+        "lcl": 0.5738801,
+        "ucl": 1.43483893,
+        "p": 0.67758721
+      },
+      "statusSurgical menopause (BSO)": {
+        "ratio": 0.99821458,
+        "lcl": 0.89660743,
+        "ucl": 1.11133626,
+        "p": 0.97395727
+      },
+      "statusUndetermined (hormone therapy)": {
+        "ratio": 1.07739836,
+        "lcl": 0.88009022,
+        "ucl": 1.31894116,
+        "p": 0.46986854
+      },
+      "statusUndetermined (hysterectomy)": {
+        "ratio": 0.81746046,
+        "lcl": 0.70035707,
+        "ucl": 0.95414416,
+        "p": 0.01064974
+      },
+      "waist_cm": {
+        "ratio": 0.90777289,
+        "lcl": 0.89727768,
+        "ucl": 0.91839085,
+        "p": 1.13225833e-55
+      }
+    },
+    "submitted_smm": {
+      "ratio": 0.96755563,
+      "lcl": 0.95931246,
+      "ucl": 0.97586963,
+      "p": 6.56159293e-14
+    },
+    "joint": [
+      {
+        "term": "smm",
+        "F": 0.02317647,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.87901745
+      },
+      {
+        "term": "log2(testosterone)",
+        "F": 3.67545211,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.05538963
+      },
+      {
+        "term": "log2(fsh)",
+        "F": 2.14908338,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.14284318
+      },
+      {
+        "term": "log2(estradiol)",
+        "F": 67.50581446,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 4.16152875e-16
+      },
+      {
+        "term": "log2(tsh)",
+        "F": 3.54572926,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.05987249
+      },
+      {
+        "term": "log2(dheas)",
+        "F": 57.75169249,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 4.92584459e-14
+      },
+      {
+        "term": "age",
+        "F": 1.47470453,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.22477648
+      },
+      {
+        "term": "height_cm",
+        "F": 3.24837351,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.07167451
+      },
+      {
+        "term": "waist_cm",
+        "F": 279.66576316,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 3.62797446e-58
+      },
+      {
+        "term": "race",
+        "F": 11.70246287,
+        "df": 3,
+        "df_residual": 1671,
+        "p": 1.37307244e-07
+      },
+      {
+        "term": "status",
+        "F": 2.42359683,
+        "df": 6,
+        "df_residual": 1671,
+        "p": 0.02456073
+      },
+      {
+        "term": "activity_limit",
+        "F": 0.64795326,
+        "df": 2,
+        "df_residual": 1671,
+        "p": 0.52324675
+      },
+      {
+        "term": "exercise",
+        "F": 0.90957033,
+        "df": 1,
+        "df_residual": 1671,
+        "p": 0.34036639
+      }
+    ],
+    "n_coefficients": 22,
+    "residual_df": 1671,
+    "dispersion": 0.26141943,
+    "deviance_explained": 0.26805844
+  },
+  "software": {
+    "r": "R version 4.3.3 (2024-02-29)"
+  }
+}

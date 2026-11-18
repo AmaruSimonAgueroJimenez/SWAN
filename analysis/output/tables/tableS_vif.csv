@@ -1,0 +1,14 @@
+"term","adjusted_gvif"
+"log2(shbg)",1.38
+"log2(testosterone)",1.36
+"log2(fsh)",1.89
+"log2(estradiol)",1.72
+"log2(tsh)",1.06
+"log2(dheas)",1.36
+"age",1.21
+"height_cm",1.22
+"waist_cm",2.08
+"race",1.19
+"status",1.09
+"activity_limit",1.07
+"exercise",1.07

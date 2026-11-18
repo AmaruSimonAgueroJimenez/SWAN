@@ -1,0 +1,133 @@
+---
+title: "Reproducibility"
+subtitle: "How to rerun the analysis, what each script produces and how the first submission was audited"
+metadata-files: [_report.yml]
+---
+
+```{r}
+#| code-summary: "Code: setup"
+source("_common.R")
+# read as text so that the reported values keep the decimals of the first submission
+au <- read.csv(file.path(OUT, "tables", "audit_first_submission.csv"), colClasses = "character", na.strings = character(0), encoding = "UTF-8")
+stopifnot(all(au$agrees %in% c("TRUE", "FALSE", "NA")))
+ok <- au$agrees == "TRUE"; rec <- suppressWarnings(as.numeric(au$recomputed))
+au$recomputed <- ifelse(is.na(rec), au$recomputed, formatC(rec, format = "fg", digits = 6, flag = "#"))
+```
+
+## Run everything
+
+From the root of the repository:
+
+```sh
+Rscript analysis/run_all.R        # tables, figures and results.json in analysis/output/
+bash docs/render_report.sh        # these pages and docs/figures/ (optional; needs Quarto and the R package knitr)
+```
+
+The first command needs R (4.3 or later) and the packages `readstata13`, `dplyr`, `tidyr`, `car`, `sandwich`,
+`ggplot2`, `patchwork` and `jsonlite`, plus the SWAN visit 10 file in `ICPSR_32961/DS0001/`, which must be obtained
+from ICPSR. The pipeline never modifies the raw file. It stops if the primary model does not reproduce its expected
+sample size, AIC and SHBG coefficient (n = `r fmt(S$n, 0)`, AIC `r fmt(PR$aic, 3)`), or if the initial model does not
+reproduce the values of the model submitted originally (AIC `r fmt(SUB$aic, 3)`).
+
+These pages do not refit any model. Every table, figure and number shown here is read from `analysis/output/`, so the
+report, the manuscript and the supplementary files always agree with the pipeline.
+
+## What each script produces
+
+| Script | Purpose | Used in |
+|:--|:----------|:-----|
+| `analysis/config.R` | Paths, reporting units, SI conversion factors, reference categories, expected values of the primary and initial models | all scripts |
+| `analysis/R/functions.R` | Definition of the primary and initial models, model fitting, ratios of means with confidence intervals, standardized means | all scripts |
+| `R/01_prepare_data.R` | Reads the raw file, recodes, derives variables, checks the Janssen equation, defines the analytic sample, counts missing values | [Data and sample](data.html) |
+| `R/02_descriptives.R` | Characteristics by tertile of SHBG, included vs not included, comparison by menopausal status, correlations, muscle mass by tertile of SHBG within tertiles of waist circumference | Table 1; Fig 1; Tables A to C and J in S1 File |
+| `R/03_primary_model.R` | Primary gamma log-link model, initial model, adjusted means, diagnostics of both | Table 2; Tables E and H in S1 File; [Primary model](results.html) |
+| `R/04_sensitivity.R` | Sequential adjustment, one covariate removed at a time, other measures of body size, scaling, specification, restrictions, shape of the association, full regression output | Fig 2; Tables D and I in S1 File |
+| `R/05_model_comparison.R` | Distributions and link functions, other families, variance function | Table F in S1 File; [Diagnostics and model choice](diagnostics.html) |
+| `R/06_shbg_as_outcome.R` | Complementary model with SHBG as the dependent variable, with the covariates of the primary model (ratios, joint tests, coefficients, fit measures) and of the initial model | Table 3; Tables G and I in S1 File |
+| `R/07_figures.R` | Figures as 600 dpi TIFF with PNG previews | Fig 1, Fig 2; Figs A to D in S1 File |
+| `R/08_audit_first_submission.R` | Recomputes the numbers reported in the first submission | this page |
+| `R/09_export_results.R` | Collects every number quoted in the text into `results.json`; writes the session information | manuscript text, these pages |
+| `R/10_check_formulas.R` | Computes by hand the formulas of Text A in S1 File and of [Model definition](models.html) and stops if any differs from what R returns | Text A in S1 File; table below |
+
+## Code of the pipeline
+
+The scripts as they are in [`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis), in the
+order in which `run_all.R` runs them. They are shown folded and are not run when these pages are rendered.
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/run_all.R", "analysis/config.R", "analysis/R/functions.R", "analysis/R/01_prepare_data.R", "analysis/R/02_descriptives.R",
+          "analysis/R/03_primary_model.R", "analysis/R/04_sensitivity.R", "analysis/R/05_model_comparison.R", "analysis/R/06_shbg_as_outcome.R",
+          "analysis/R/07_figures.R", "analysis/R/08_audit_first_submission.R", "analysis/R/09_export_results.R", "analysis/R/10_check_formulas.R")
+```
+
+On every page of this report the code of each table is folded above it (*Code*). That code reads the output of the
+pipeline with the helpers of `docs/_common.R`:
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("docs/_common.R")
+```
+
+## Figures of the manuscript
+
+The two figures of the main text are written by the pipeline to `analysis/output/figures/` and copied to
+`docs/figures/` when the report is rendered: [Fig1.png](figures/Fig1.png), [Fig1.tif](figures/Fig1.tif),
+[Fig2.png](figures/Fig2.png) and [Fig2.tif](figures/Fig2.tif). The TIFF files (600 dpi, LZW) are the ones to upload
+to the journal.
+
+## Check of the formulas
+
+The equations of Text A in S1 File and of [Model definition](models.html) are computed by hand from the design matrix,
+the outcome and the fitted values of the primary model, and compared with the values that R returns.
+
+```{r}
+fc <- tab("tableS_formula_checks")
+stopifnot(all(fc$agrees))
+kt(data.frame(Equation = fc$equation, Quantity = fc$quantity, `Largest absolute difference` = formatC(fc$max_abs_difference, format = "e", digits = 1),
+              Tolerance = formatC(fc$tolerance, format = "e", digits = 0), Agrees = ifelse(fc$agrees, "yes", "no"), check.names = FALSE), align = "llrrl")
+```
+
+Equation numbers are those of Text A in S1 File. The score equations hold up to the convergence tolerance of the
+fitting algorithm.
+
+## Software
+
+```{r}
+#| comment: ""
+cat(readLines(file.path(OUT, "session_info.txt")), sep = "\n")
+```
+
+## History of the primary model
+
+The model submitted originally (called the initial model here) had SHBG and the hormones on their original scale and
+percent body fat as the only measure of body composition. On 17 November 2026 it was replaced as the primary model by
+the model defined in [Model definition](models.html), which adds height, waist circumference and race/ethnicity, uses
+base 2 logarithms for SHBG and the hormones and drops percent body fat. The change was made after the results of the
+initial model were known. The initial model is still fitted by the pipeline, with its own regression test, and is
+reported in full. The script that led to the proposal is kept in `analysis/proposal/`:
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/proposal/primary_model_proposal.R")
+```
+
+## Audit of the first submission
+
+The numbers reported in the version of the manuscript that was submitted first were recomputed from the data.
+`r sum(ok)` of `r nrow(au)` items agree; the others are listed first.
+
+```{r}
+o <- order(ok)
+kt(data.frame(Item = au$item, Reported = ifelse(au$reported == "NA", "not stated", au$reported), Recomputed = au$recomputed,
+              Agrees = ifelse(au$agrees == "TRUE", "yes", ifelse(au$agrees == "FALSE", "no", "not comparable")),
+              Comment = au$comment, check.names = FALSE)[o, ], align = "lrrll")
+```
+
+## Data terms
+
+The SWAN data are distributed by ICPSR under its terms of use. Anyone who wants to reproduce the analysis should
+download the visit 10 file (study 32961, version 2) from ICPSR and place it in `ICPSR_32961/DS0001/`.

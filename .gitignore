@@ -47,3 +47,15 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Individual-level derived data of the analysis pipeline
+analysis/output/data/
+
+# macOS
+.DS_Store
+
+# Quarto
+.quarto/
+
+# Files superseded by the pipeline, to be deleted by hand
+_to_delete/

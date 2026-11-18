@@ -1,0 +1,144 @@
+---
+title: "Diagnostics and model choice"
+subtitle: "Does the gamma model with log link describe the data, and would another model change the result?"
+metadata-files: [_report.yml]
+---
+
+```{r}
+#| code-summary: "Code: setup, and checks that the statements of the text hold in the data"
+source("_common.R")
+dg <- tab("tableS_diagnostics"); d <- setNames(dg$value, dg$quantity)
+di <- tab("tableS_diagnostics_initial"); d0 <- setNames(di$value, di$quantity)
+mc <- tab("tableS_model_comparison"); af <- rows(R$alternative_families); vf <- R$variance_function
+fm <- tab("tableS_fit_measures")
+NL <- rows(R$nonlinearity)
+gam <- mc[grepl("^Gamma", mc$model), ]
+# statements made in the text must hold in the data
+stopifnot(min(mc$delta_aic[grepl("^Gaussian", mc$model)]) - max(gam$delta_aic) > 100, gam$delta_aic[grepl("log link", gam$model)] == 0,
+          vf$lcl < 2, vf$ucl > 2, vf$p_gaussian < 0.05, all(af$delta_aic_vs_primary[2:3] < 0),
+          max(abs(af$pct_difference - af$pct_difference[1])) < 0.1,
+          as.numeric(d[["Link test P (squared linear predictor)"]]) > 0.05, as.numeric(d0[["Link test P (squared linear predictor)"]]) < 0.05,
+          PR$max_cook < 0.5, SUB$max_cook > 1, NL$p_nonlinearity[1] > 0.05, d[["Term with largest adjusted GVIF"]] == "waist_cm")
+```
+
+## Short answer
+
+The gamma model with log link is an adequate and defensible choice for these data, and the result does not depend on
+it.
+
+- Gamma models fit better than Gaussian models (difference in AIC above 100), and the log link has the lowest AIC of
+  the three gamma link functions.
+- The variance function estimated from the residuals is compatible with the gamma and inverse Gaussian models: the
+  power estimated by the modified Park test is `r fmt(vf$lambda, 1)` (95% CI `r ci(vf$lcl, vf$ucl, 1)`), where 2 corresponds
+  to the gamma model. The interval is wide.
+- Inverse Gaussian and log-normal models fit somewhat better by AIC and give similar estimates for SHBG
+  (`r fmt(af$pct_difference[2], 2)`% and `r fmt(af$pct_difference[3], 2)`% per doubling, against `r fmt(af$pct_difference[1], 2)`% in
+  the primary model).
+- What changes the estimate is not the distribution but one covariate, waist circumference. See
+  [Sensitivity analyses](sensitivity.html).
+
+## Fit and residuals
+
+```{r}
+dv <- function(x, m) c(as.character(S$n - as.numeric(x[["Residual df"]])), x[["Dispersion parameter"]],
+                    paste0(x[["Residual deviance"]], " (", fmt(as.numeric(x[["Residual df"]]), 0), ")"),
+                    fmt(100 * as.numeric(x[["Deviance explained (1 - deviance/null deviance)"]]), 1), fmt(fm$aic[fm$model == m], 1),
+                    x[["RMSE, kg"]], x[["Correlation observed vs fitted"]],
+                    fmt(as.numeric(x[["Largest Cook's distance"]]), 2), fmt(as.numeric(x[["Largest leverage"]]), 2),
+                    x[["Observations with Cook's distance > 4/n"]],
+                    paste0(x[["Largest adjusted GVIF"]], " (", x[["Term with largest adjusted GVIF"]], ")"), x[["Link test P (squared linear predictor)"]])
+kt(data.frame(Quantity = c("Coefficients estimated", "Dispersion parameter", "Residual deviance (residual degrees of freedom)", "Deviance explained, %", "AIC",
+                           "Root mean squared error, kg", "Correlation between observed and fitted values", "Largest Cook's distance", "Largest leverage",
+                           "Observations with Cook's distance above 4/n", "Largest adjusted generalized variance inflation factor", "Link test, P value"),
+              `Primary model` = dv(d, "Primary model"), `Initial model` = dv(d0, "Initial model"), check.names = FALSE), align = "lrr")
+```
+
+![Diagnostic plots of the primary model. (A) Standardized deviance residuals against fitted values. (B) Normal quantile plot of the quantile residuals. (C) Cook's distance by observation. (D) Observed against fitted skeletal muscle mass.](`r fig("S2_Fig")`){width=95%}
+
+In the primary model, quantile residuals are close to the normal distribution except in the upper tail, and the
+deviance residuals show no trend with the fitted values. Collinearity is not a concern. The link test gives no
+evidence that the linear predictor is misspecified, and there is no evidence of departure from linearity for
+log2(SHBG) (`r ptext(NL$p_nonlinearity[1])`). No single observation has a large influence; the estimate without the
+`r PR$n_cook_gt_4n` observations with a Cook's distance above 4/n is on the page
+[Sensitivity analyses](sensitivity.html#scaling-specification-and-sample).
+
+The initial model fitted worse on every count: it explained less deviance, its link test indicated misspecification
+and one observation, the participant with the extreme testosterone value, had a Cook's distance of
+`r fmt(SUB$max_cook, 1)`.
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Variance inflation factors by term (primary model)
+
+```{r}
+vif <- tab("tableS_vif")
+kt(data.frame(Term = vif$term, `Adjusted generalized variance inflation factor` = fmt(vif$adjusted_gvif, 2), check.names = FALSE), align = "lr")
+```
+
+:::
+
+## Distribution and link function
+
+```{r}
+kt(data.frame(Model = mc$model, AIC = fmt(mc$aic, 1), `Difference in AIC` = fmt(mc$delta_aic, 1), `RMSE, kg` = fmt(mc$rmse_kg, 3),
+              `Difference in muscle mass per doubling of SHBG, kg` = fmt(mc$change_smm_kg_per_doubling, 2), `P value for SHBG` = pval(mc$shbg_p),
+              check.names = FALSE), align = "lrrrrr")
+```
+
+Same sample and linear predictor (log2 SHBG and the covariates of the primary model) in every model, ordered by AIC.
+The difference in kilograms is the average change in the model predictions for a doubling of SHBG, which places all
+link functions on the same scale. Among the gamma models the log link has the lowest AIC (the identity and inverse
+links are `r fmt(gam$delta_aic[grepl("identity", gam$model)], 1)` and `r fmt(gam$delta_aic[grepl("inverse", gam$model)], 1)` units
+higher), and every model gives a difference between `r fmt(max(mc$change_smm_kg_per_doubling), 2)` and
+`r fmt(min(mc$change_smm_kg_per_doubling), 2)` kg. With the log link the coefficients are ratios of means.
+
+## Other families with a log-scale mean
+
+```{r}
+kt(data.frame(Model = af$model, `Variance` = gsub("^3", "³", gsub("^2", "²", af$variance_function, fixed = TRUE), fixed = TRUE), Estimand = af$estimand, AIC = fmt(af$aic, 1),
+              `Difference in AIC vs primary` = fmt(af$delta_aic_vs_primary, 1),
+              `Difference per doubling of SHBG, % (95% CI)` = paste0(fmt(af$pct_difference, 2), " (", ci(af$pct_lcl, af$pct_ucl), ")"),
+              `Difference, kg` = fmt(af$change_smm_kg_per_doubling, 2), check.names = FALSE), align = "lllrrrr")
+```
+
+AIC values are on the scale of skeletal muscle mass. Both alternatives have a lower AIC than the gamma model, and the
+estimates for SHBG differ from it by less than 0.1 percentage points. Skeletal muscle mass has a small coefficient of
+variation (`r fmt(100 * S$smm_sd / S$smm_mean, 0)`%), so these distributions are close to each other over the range of
+the data.
+
+## Variance function
+
+```{r}
+kt(data.frame(Quantity = c("Power of the variance function, λ", "95% confidence interval", "P value for λ = 2 (gamma)",
+                           "P value for λ = 0 (Gaussian)", "P value for λ = 3 (inverse Gaussian)"),
+              Value = c(fmt(vf$lambda, 2), ci(vf$lcl, vf$ucl, 2), pval(vf$p_gamma), pval(vf$p_gaussian), pval(vf$p_inverse_gaussian))), align = "lr")
+```
+
+Modified Park test ([definition](models.html#other-distributions)) with a robust standard error. The estimate is
+imprecise because skeletal muscle mass varies over a narrow range. It is compatible with the gamma and inverse
+Gaussian variance functions and not with a constant variance.
+
+## What would change the result
+
+| Decision | Effect on the estimate for SHBG |
+|:--|:--|
+| Distribution (gamma, inverse Gaussian, log-normal, Gaussian) | none of practical size |
+| Link function (log, identity, inverse) | none of practical size |
+| Robust standard errors | none |
+| Functional form of SHBG in the primary model (logarithm, linear, spline) | none of practical size |
+| Removing any covariate other than waist circumference | none of practical size |
+| Body mass index or weight instead of waist circumference | none of practical size |
+| Scaling of muscle mass (index, percentage of body weight) | none of practical size |
+| Removing waist circumference, or using fat mass or percent body fat from impedance as the only measure of adiposity | large: an inverse association appears |
+
+## Code behind this page
+
+The code of each table is folded above it (*Code*), and the *Code* menu at the top of the page shows or hides all of
+it. That code only reads the output of the pipeline. The numbers are computed by the scripts below, shown as they are
+in [`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis) and not run here. All the scripts
+of the pipeline are on the page [Reproducibility](reproducibility.html#code-of-the-pipeline).
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/config.R", "analysis/R/functions.R", "analysis/R/03_primary_model.R", "analysis/R/04_sensitivity.R", "analysis/R/05_model_comparison.R", "analysis/R/07_figures.R")
+```

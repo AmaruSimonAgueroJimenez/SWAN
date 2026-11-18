@@ -1,0 +1,167 @@
+---
+title: "Sensitivity analyses"
+subtitle: "How the association between SHBG and skeletal muscle mass depends on each covariate, on the measure of body size, on the specification and on the sample"
+metadata-files: [_report.yml]
+---
+
+```{r}
+#| code-summary: "Code: setup, and checks that the statements of the text hold in the data"
+source("_common.R")
+sen <- tab("tableS_sensitivity")
+other <- sapply(paste0("B", 2:8), function(k) pct(SE[[k]]$ratio))            # one covariate other than waist removed
+spec  <- sapply(paste0("E", 1:4), function(k) pct(SE[[k]]$ratio))
+samp  <- sapply(paste0("F", 1:5), function(k) pct(SE[[k]]$ratio))
+NL <- rows(R$nonlinearity)
+P <- function(k) SE[[k]]$p
+# statements made in the text must hold in the data
+stopifnot(P("A5") > 0.05, P("B1") < 0.001, all(sapply(paste0("B", 2:8), P) > 0.05), P("A3") < 0.001, P("A4") > 0.05,
+          all(sapply(c("C1", "C2", "C4", "C5", "C6"), P) > 0.05), P("C3") < 0.001, P("C7") < 0.001,
+          P("D1") > 0.05, P("D2") > 0.05, all(sapply(c(paste0("E", 1:4), "F2", "F3", "F4", "F5"), P) > 0.05), P("F1") < 0.05,
+          NL$p_nonlinearity[1] > 0.05, NL$p_nonlinearity[2] < 0.001, NL$p_per_10[1] > 0.05)
+```
+
+All estimates are percent differences in mean skeletal muscle mass per doubling of SHBG. The models are defined
+in [Model definition](models.html#sensitivity-models). The primary model was defined after an initial model had been
+fitted, and the sensitivity analyses describe the robustness of a single association; they were not adjusted for
+multiple testing.
+
+## Role of each covariate and of the measure of body size
+
+![(A) Adjusted mean skeletal muscle mass across SHBG in the primary model (solid line) and in the primary model without waist circumference (dashed line); bands are 95% confidence intervals. (B) Percent difference in mean skeletal muscle mass per doubling of SHBG when one covariate is removed from the primary model; the five hormone covariates were removed together. (C) The same difference when body size is measured in other ways: another measure in place of height or waist circumference, a further measure added to the primary model (+), or the covariates of the initial model. The filled point and the dotted line mark the primary model. Fig 2 of the manuscript.](`r fig("Fig2")`){width=88%}
+
+- **Waist circumference is the only covariate that matters.** Without it the estimate is `r est(SE$B1)`. With any other
+  covariate removed it stays between `r fmt(min(other), 2)`% and `r fmt(max(other), 2)`%.
+- **The sequential models show the same step.** The estimate is `r est(SE$A3)` after adjustment for age, race/ethnicity
+  and height, and `r est(SE$A4)` once waist circumference is added.
+- **The result does not depend on waist circumference as the measure of body size.** With body mass index in place of
+  height and waist circumference the estimate is `r est(SE$C1)`, and with weight in place of waist circumference
+  `r est(SE$C2)`. It stays close to zero when percent body fat (`r fmt(pct(SE$C4$ratio), 2)`%), body mass index
+  (`r fmt(pct(SE$C5$ratio), 2)`%) or fat mass (`r fmt(pct(SE$C6$ratio), 2)`%) is added to the primary model.
+- **The exception is body composition from impedance as the only measure of adiposity.** With fat mass in place of
+  waist circumference the estimate is `r est(SE$C3)`, and with the covariates of the initial model `r est(SE$C7)`.
+
+### Why the impedance-based measures behave differently
+
+Percent body fat is a proportion. It correlates weakly with absolute muscle mass (ρ = `r fmt(S$spearman_smm_pbf, 2)`)
+and less strongly with SHBG (ρ = `r fmt(S$spearman_shbg_pbf, 2)`) than waist circumference does
+(ρ = `r fmt(S$spearman_shbg_waist, 2)`), so it captures less of what the two variables share. In addition, percent body
+fat and fat mass come from the same impedance measurement as skeletal muscle mass: the fat-free mass implied by weight
+and percent body fat has a correlation of `r fmt(S$pearson_smm_ffm, 2)` with skeletal muscle mass. These variables are
+partly determined by the outcome, which makes them poor measures of body size for this purpose.
+
+## Scaling, specification and sample
+
+![Percent difference in mean skeletal muscle mass per doubling of SHBG, with 95% confidence intervals, under sequential adjustment, alternative scaling of muscle mass, alternative specifications and restricted samples. The filled point and the dotted line mark the primary model.](`r fig("S4_Fig")`){width=88%}
+
+- **Scaling of muscle mass.** As an index (kg/m², without height as a covariate) the estimate is `r est(SE$D1)`; as a
+  percentage of body weight, `r est(SE$D2)`.
+- **Specification.** Robust standard errors, a Gaussian model, a log-linear model and untransformed hormone covariates
+  give estimates between `r fmt(min(spec), 2)`% and `r fmt(max(spec), 2)`%.
+- **Sample.** Restrictions give estimates between `r fmt(min(samp), 2)`% and `r fmt(max(samp), 2)`%. The only confidence
+  interval that excludes zero is the one obtained without the `r S$n_cook_excluded` observations with a Cook's distance
+  above 4/n: `r est(SE$F1)`, `r ptext(SE$F1$p)`. A small association cannot be ruled out.
+
+## All specifications
+
+```{r}
+kt(data.frame(ID = sen$id, Group = sub("^[A-G]\\. ", "", sen$group), Specification = ufix(sen$specification), n = fmt(sen$n, 0),
+              `Ratio of means (95% CI)` = paste0(fmt(sen$ratio, 3), " (", ci(sen$lcl, sen$ucl, 3), ")"),
+              `Difference, % (95% CI)` = paste0(fmt(sen$pct_difference, 2), " (", ci(pct(sen$lcl), pct(sen$ucl)), ")"),
+              `P value` = pval(sen$p), check.names = FALSE), align = "lllrrrr")
+```
+
+Per doubling of SHBG. In D1 height is not a covariate. In C7 the covariates are those of the initial model.
+
+## Shape of the association
+
+```{r}
+kt(data.frame(Model = NL$model, `Term tested` = NL$term_tested, `AIC, log2(SHBG)` = fmt(NL$aic_log2, 1), `AIC, SHBG linear` = fmt(NL$aic_linear, 1),
+              `AIC, spline (3 df)` = fmt(NL$aic_spline_3df, 1),
+              `Test against the spline` = paste0("F = ", fmt(NL$F_nonlinearity, 2), " (df = ", NL$df1, " and ", fmt(NL$df2, 0), "); ", ptext(NL$p_nonlinearity)),
+              `Ratio per 10 nmol/L, SHBG linear (95% CI)` = paste0(fmt(NL$ratio_per_10, 3), " (", ci(NL$lcl_per_10, NL$ucl_per_10, 3), ")"),
+              check.names = FALSE), align = "llrrrlr")
+```
+
+In the primary model there is no evidence of departure from linearity on the logarithmic scale, and SHBG entered as an
+untransformed linear term leads to the same conclusion (`r ptext(NL$p_per_10[1])`). With the covariates of the initial
+model a linear term does not describe the association: the slope is steeper at low concentrations and flattens at
+high ones, and the logarithm fits better. This is one of the reasons for the logarithmic scale of the primary model.
+
+![Ratio of mean skeletal muscle mass relative to the median SHBG. (A) Primary model: the term for log2(SHBG) and a natural cubic spline of log2(SHBG). (B) Initial model: the linear term for SHBG and a natural cubic spline of SHBG.](`r fig("S3_Fig")`){width=90%}
+
+## Initial model
+
+```{r}
+ti <- tab("tableS_submitted_model")
+kt(data.frame(Variable = term_label(ti$term, ti$label),
+              `Ratio of means (95% CI)` = paste0(fmt(ti$ratio, 3), " (", ci(ti$lcl, ti$ucl, 3), ")"),
+              `Difference in mean, %` = fmt(ti$pct_difference, 2), `P value` = pval(ti$p), check.names = FALSE), align = "lrrr")
+```
+
+The model specified first, with SHBG and the hormones on their original scale and percent body fat as the only measure
+of body composition ([definition and reasons for its revision](models.html#initial-model-and-reasons-for-its-revision)).
+It gives `r fmt(pct(SUB$terms$shbg$ratio), 2)`% per 10 nmol/L of SHBG
+(95% CI `r ci(pct(SUB$terms$shbg$lcl), pct(SUB$terms$shbg$ucl))`). One participant had a testosterone concentration of
+`r fmt(SUB$max_testosterone_ng_dl, 0)` ng/dL (`r fmt(SUB$max_testosterone_nmol_l, 1)` nmol/L), with a leverage of
+`r fmt(SUB$max_leverage, 2)` and a Cook's distance of `r fmt(SUB$max_cook, 1)` in this model. In the primary model, in
+which the hormones are on the logarithmic scale, excluding her gives `r est(SE$F5)`.
+
+## SHBG as the dependent variable
+
+```{r}
+so <- tab("tableS_shbg_outcome")
+lab_of <- function(d) { l <- c(tab("table2_primary_model")$label, ti$label); names(l) <- c(tab("table2_primary_model")$term, ti$term); unname(l[d$term]) }
+show_so <- function(m) { d <- so[so$model == m, ]
+  kt(data.frame(Variable = term_label(d$term, lab_of(d)), `Ratio of mean SHBG (95% CI)` = paste0(fmt(d$ratio, 3), " (", ci(d$lcl, d$ucl, 3), ")"),
+                `P value` = pval(d$p), check.names = FALSE), align = "lrr") }
+sp <- R$shbg_outcome$primary
+sjt <- rows(R$shbg_outcome$joint)
+sjf <- function(term) paste0("F = ", fmt(sjt$F[sjt$term == term], 2), " (df = ", sjt$df[sjt$term == term], " and ", fmt(sjt$df_residual[1], 0), "; ", ptext(sjt$p[sjt$term == term]), ")")
+stopifnot(sp$smm$p > 0.05, sp$waist_cm$p < 0.001, R$shbg_outcome$submitted_smm$p < 0.001,
+          sp[["log2(estradiol)"]]$p < 0.001, sp[["log2(estradiol)"]]$ratio > 1, sp[["log2(dheas)"]]$p < 0.001, sp[["log2(dheas)"]]$ratio < 1,
+          sjt$p[sjt$term == "race"] < 0.001, sjt$p[sjt$term == "status"] < 0.05)
+```
+
+::: {.panel-tabset}
+
+## Covariates of the primary model (Table 3 of the manuscript)
+
+```{r}
+show_so("Covariates of the primary model")
+```
+
+Joint $F$ tests: race/ethnicity, `r sjf("race")`; menopausal status, `r sjf("status")`; activity limitation,
+`r sjf("activity_limit")`. The model explains `r fmt(100 * R$shbg_outcome$deviance_explained, 1)`% of the deviance.
+
+## Covariates of the initial model
+
+```{r}
+show_so("Covariates of the initial model")
+```
+
+:::
+
+Complementary gamma log-link model with SHBG as the dependent variable. The concentration of SHBG responds to
+adiposity and to other hormones, so it is natural to read the association with SHBG as the variable to be explained.
+Read in that direction the conclusion is the same. With the covariates of the primary model, skeletal muscle mass is
+not associated with SHBG (ratio per kilogram `r fmt(sp$smm$ratio, 3)`; 95% CI `r ci(sp$smm$lcl, sp$smm$ucl, 3)`), whereas
+mean SHBG is `r fmt(abs(pct(sp$waist_cm$ratio)), 1)`% lower for each 5 cm of waist circumference,
+`r fmt(pct(sp[["log2(estradiol)"]]$ratio), 1)`% higher for each doubling of estradiol and
+`r fmt(abs(pct(sp[["log2(dheas)"]]$ratio)), 1)`% lower for each doubling of DHEA-S, and differs by race/ethnicity and
+menopausal status. With the covariates of the initial model, each additional kilogram of skeletal muscle mass was
+associated with `r fmt(abs(pct(R$shbg_outcome$submitted_smm$ratio)), 1)`% lower SHBG. The primary analysis keeps
+skeletal muscle mass as the dependent variable because that is how the question is posed in the literature; the design
+is cross-sectional and neither model identifies a direction of effect.
+
+## Code behind this page
+
+The code of each table is folded above it (*Code*), and the *Code* menu at the top of the page shows or hides all of
+it. That code only reads the output of the pipeline. The numbers are computed by the scripts below, shown as they are
+in [`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis) and not run here. All the scripts
+of the pipeline are on the page [Reproducibility](reproducibility.html#code-of-the-pipeline).
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/config.R", "analysis/R/functions.R", "analysis/R/03_primary_model.R", "analysis/R/04_sensitivity.R", "analysis/R/06_shbg_as_outcome.R", "analysis/R/07_figures.R")
+```

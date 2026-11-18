@@ -1,0 +1,125 @@
+---
+title: "Primary model"
+subtitle: "Gamma generalized linear model with log link: skeletal muscle mass on log2 SHBG and covariates"
+metadata-files: [_report.yml]
+---
+
+```{r}
+#| code-summary: "Code: setup, and checks that the statements of the text hold in the data"
+source("_common.R")
+t2 <- tab("table2_primary_model")
+a1 <- SE$A1; a5 <- SE$A5
+jt <- rows(PR$joint)
+jf <- function(term) paste0("F = ", fmt(jt$F[jt$term == term], 2), " (df = ", jt$df[jt$term == term], " and ", fmt(jt$df_residual[1], 0), "; ", ptext(jt$p[jt$term == term]), ")")
+tp <- function(term) PR$terms[[term]]$p
+# statements made in the text must hold in the data
+stopifnot(a5$p > 0.05, tp("height_cm") < 0.001, tp("waist_cm") < 0.001, tp("log2(testosterone)") < 0.05, tp("exerciseYes") < 0.05,
+          tp("log2(fsh)") < 0.05, tp("activity_limitLimited a lot") < 0.05, tp("raceBlack") < 0.05,
+          tp("log2(estradiol)") > 0.05, tp("log2(dheas)") > 0.05, tp("log2(tsh)") > 0.05, tp("age") > 0.05, jt$p[jt$term == "status"] > 0.05)
+```
+
+The model is defined in [Model definition](models.html). It was fitted to `r fmt(S$n, 0)` women and has
+`r nrow(t2) + 1` coefficients (`r fmt(jt$df_residual[1], 0)` residual degrees of freedom).
+
+## Association between SHBG and skeletal muscle mass
+
+Without adjustment, each doubling of SHBG was associated with a `r fmt(abs(pct(a1$ratio)), 2)`% lower mean skeletal
+muscle mass (95% CI `r ci(abs(pct(a1$ucl)), abs(pct(a1$lcl)))`). In the primary model the difference was
+**`r fmt(pct(a5$ratio), 2)`%** (ratio of means `r fmt(a5$ratio, 3)`; 95% CI `r ci(a5$lcl, a5$ucl, 3)`; `r ptext(a5$p)`), an
+average of `r fmt(PR$ame_kg_per_doubling, 2)` kg per doubling.
+
+::: {.panel-tabset}
+
+## Ratios of means
+
+```{r}
+kt(data.frame(Variable = term_label(t2$term, t2$label),
+              `Ratio of means (95% CI)` = paste0(fmt(t2$ratio, 3), " (", ci(t2$lcl, t2$ucl, 3), ")"),
+              `Difference in mean, %` = fmt(t2$pct_difference, 2),
+              `P value` = pval(t2$p), check.names = FALSE), align = "lrrr")
+```
+
+Ratios are $\exp(\hat\beta)$ per doubling for SHBG and the hormones, $\exp(c\,\hat\beta)$ for the increase $c$ stated in
+the other rows, or relative to the reference category (White, natural post-menopause, not limited, no exercise).
+Joint $F$ tests: race/ethnicity, `r jf("race")`; menopausal status, `r jf("status")`; activity limitation,
+`r jf("activity_limit")`.
+
+## Coefficients on the log scale
+
+```{r}
+fo <- tab("tableS_full_regression_output"); fo <- fo[fo$model == "Primary model", ]
+sig <- function(x) ifelse(abs(x) >= 1, fmt(x, 3), ifelse(abs(x) >= 0.001, fmt(x, 5), fmt(x, 6)))
+kt(data.frame(Term = ifelse(fo$term == "(Intercept)", "Intercept", term_label(fo$term, t2$label[match(fo$term, t2$term)])), `β` = sig(fo$beta), SE = sig(fo$se), t = fmt(fo$t, 2), `P value` = pval(fo$p), check.names = FALSE), align = "lrrrr")
+```
+
+Coefficients $\hat\beta$ on the log scale. The label of each row gives the reporting unit of the ratio of means; the
+coefficient itself is for a difference of one unit in the term (one unit of the base 2 logarithm, that is, a doubling,
+for SHBG and the hormones; years; cm) or relative to the reference category.
+
+## Fit measures
+
+```{r}
+fm <- tab("tableS_fit_measures")
+fv <- function(m) { x <- fm[fm$model == m, ]; c(fmt(x$n, 0), fmt(x$residual_df, 0), fmt(x$dispersion, 5), fmt(x$null_deviance, 3), fmt(x$residual_deviance, 3),
+                        fmt(100 * (1 - x$residual_deviance / x$null_deviance), 1), fmt(x$log_likelihood, 1), fmt(x$aic, 1), fmt(x$bic, 1)) }
+kt(data.frame(Measure = c("Observations", "Residual degrees of freedom", "Dispersion parameter", "Null deviance", "Residual deviance",
+                          "Deviance explained, %", "Log-likelihood", "AIC", "BIC"),
+              `Primary model` = fv("Primary model"), `Initial model` = fv("Initial model"), check.names = FALSE), align = "lrr")
+```
+
+The initial model is described in [Model definition](models.html#initial-model-and-reasons-for-its-revision).
+
+:::
+
+Among the covariates, greater height and waist circumference, higher testosterone and exercise were associated with
+higher skeletal muscle mass, and higher FSH, a marked limitation of vigorous activities and Black race/ethnicity with
+lower skeletal muscle mass. Estradiol, DHEA-S, TSH, age and menopausal status were not associated with it. The
+coefficients of height and age partly reflect the impedance equation, which includes both.
+
+## Adjusted means
+
+```{r}
+pr <- rows(PR$predicted)
+kt(data.frame(`Percentile of SHBG` = pr$shbg_percentile, `SHBG, nmol/L` = fmt(pr$shbg_nmol_L, 1),
+              `Adjusted mean skeletal muscle mass, kg` = fmt(pr$adjusted_mean_smm_kg, 2),
+              `Difference from the 25th percentile, kg` = fmt(pr$difference_vs_p25_kg, 2), check.names = FALSE), align = "rrrr")
+```
+
+Means standardized to the covariate distribution of the sample
+([definition](models.html#adjusted-means-and-absolute-difference)).
+
+![Adjusted mean skeletal muscle mass across SHBG concentrations, from the primary model (solid line) and from the primary model without waist circumference (dashed line). Bands are 95% confidence intervals; the axis spans the 2.5th to 97.5th percentiles of SHBG and the tick marks show individual values.](`r fig("Fig2_overview")`){width=80%}
+
+## Skeletal muscle mass and SHBG by menopausal status
+
+```{r}
+bs <- tab("tableS_by_status"); gl <- rows(R$status$global)
+names(bs) <- c("Menopausal status", "n", "Skeletal muscle mass, kg, mean (SD)", "Skeletal muscle mass, kg, median (IQR)",
+               "SHBG, nmol/L, mean (SD)", "SHBG, nmol/L, median (IQR)")
+bs$n <- fmt(bs$n, 0)
+kt(bs, align = "lrrrrr")
+g <- function(v) gl[gl$variable == v, ]
+```
+
+Unadjusted comparison across categories. Skeletal muscle mass: Welch's F = `r fmt(g("Skeletal muscle mass")$welch_F, 2)`
+(df = `r g("Skeletal muscle mass")$welch_df1` and `r fmt(g("Skeletal muscle mass")$welch_df2, 1)`; `r ptext(g("Skeletal muscle mass")$anova_welch_p)`).
+SHBG: Kruskal-Wallis χ² = `r fmt(g("SHBG")$kruskal_chi2, 1)` (df = `r g("SHBG")$kruskal_df`; `r ptext(g("SHBG")$kruskal_p)`);
+Welch's F = `r fmt(g("SHBG")$welch_F, 2)` (`r ptext(g("SHBG")$anova_welch_p)`). After Bonferroni correction for the 21
+pairwise comparisons, `r R$status$n_smm_pairs_bonferroni` differences in skeletal muscle mass remained
+(natural post-menopause vs late perimenopause and vs surgical menopause) and `r R$status$n_shbg_pairs_bonferroni` in SHBG.
+In the primary model the joint test for menopausal status gave `r jf("status")`.
+
+![Skeletal muscle mass (A) and SHBG (B) by menopausal status in the analytic sample. Boxes show the median and interquartile range.](`r fig("S1_Fig")`){width=85%}
+
+## Code behind this page
+
+The code of each table is folded above it (*Code*), and the *Code* menu at the top of the page shows or hides all of
+it. That code only reads the output of the pipeline. The numbers are computed by the scripts below, shown as they are
+in [`analysis/`](https://github.com/AmaruSimonAgueroJimenez/SWAN/tree/main/analysis) and not run here. All the scripts
+of the pipeline are on the page [Reproducibility](reproducibility.html#code-of-the-pipeline).
+
+```{r}
+#| echo: false
+#| output: asis
+show_code("analysis/config.R", "analysis/R/functions.R", "analysis/R/02_descriptives.R", "analysis/R/03_primary_model.R", "analysis/R/04_sensitivity.R", "analysis/R/07_figures.R")
+```
